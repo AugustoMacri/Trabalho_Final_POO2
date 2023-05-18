@@ -1,4 +1,5 @@
-package com.mygdx.game;
+
+/*package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -20,10 +21,10 @@ public class Ball {
 
     public void update(){
         if(x < (0 + size) || x > (Gdx.graphics.getWidth() - size)){
-            xSpeed = -xSpeed;
+            x = -(x - 3);
         } 
-        if(y < (0 + size) || y > (Gdx.graphics.getHeight()- size)){
-            ySpeed = -ySpeed;
+        if(y < (0 + size) || y > (Gdx.graphics.getHeight() - size)){
+            y = -(y - 3);
         }
 
     }
@@ -32,3 +33,4 @@ public class Ball {
     }
     
 }
+*/
