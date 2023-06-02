@@ -34,14 +34,15 @@ public class Cube {
 
     public void render(){
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+        shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);    //drawing a rectangle on the coordinates and dimentions
         shapeRenderer.end();
 
     }
     
     //Here is the function that can make the Cube be dragged from a side to another
+    //------------------------------------------------------------
     public void handleInput(){
-         if(Gdx.input.justTouched()){               //check if there was any contact with the screen
+         if(Gdx.input.justTouched()){              //check if there was any contact with the screen
             float touchX = Gdx.input.getX();       //get the coordenates of the touch
             float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
              
@@ -51,7 +52,7 @@ public class Cube {
                 dragY = touchY - bounds.y; 
             }
         }    
-        if(Gdx.input.isTouched() && dragging){  //if dragging = true and the touch is still ocurring, we can drag the cube
+        if(Gdx.input.isTouched() && dragging){     //if dragging = true and the touch is still ocurring, we can drag the cube
             float touchX = Gdx.input.getX();
             float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();  
             bounds.x = touchX - dragX;
@@ -61,9 +62,11 @@ public class Cube {
         dragging = false;   
         }
 
+        //Collision Rectangle position
+        //------------------------------------------------------------
         rectangle.setPosition(bounds.x, bounds.y);  //actualize the position of the invisible rectangle
     }
-        
+
     public void dispose(){
         shapeRenderer.dispose();
     }

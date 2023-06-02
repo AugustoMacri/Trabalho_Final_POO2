@@ -15,10 +15,11 @@ import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-    Texture characterTexture, cubeTexture; 
+    Texture characterTexture, cubeTexture, enemyTexture; 
     
     Character character;
     Cube cube;
+    ZombieBuff enemy;
 
     SpriteBatch spriteBatch;
 
@@ -40,7 +41,11 @@ public class MyGdxGame extends ApplicationAdapter {
         cube = new Cube(cubeTexture, 150, 150, 50, 50);
         spriteBatch = new SpriteBatch();
 
-
+        //creating the enemy
+        //---------------------------------------------------------------------------------
+        enemyTexture = new Texture("zombie3.png");
+        enemy = new ZombieBuff(enemyTexture, 200, 200, 50, 50);
+        spriteBatch = new SpriteBatch();
     }
 
     @Override
@@ -49,11 +54,14 @@ public class MyGdxGame extends ApplicationAdapter {
 
         spriteBatch.begin();
         character.render();
+        enemy.render();
         spriteBatch.end();
         cube.render();
         cube.handleInput();
         character.update();
+        enemy.update(character);
         character.detectCollision(cube);
+        character.detectCollision(enemy);
     }
 
     @Override

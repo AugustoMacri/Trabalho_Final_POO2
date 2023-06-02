@@ -70,7 +70,15 @@ public class Character {
         boolean isOverlapping = rectangle.overlaps(cube.getRectangle());
 
         if(isOverlapping){
-            System.out.println("Collision Detected" + playerPositionX + " " + playerPositionY);
+            System.out.println("Collision Detected with cube " + playerPositionX + " " + playerPositionY);
+        }
+    }
+
+    public void detectCollision(ZombieBuff enemy){
+        boolean isOverlapping = rectangle.overlaps(enemy.getRectangle());
+
+        if(isOverlapping){
+            System.out.println("Collision Detected with Zombie " + playerPositionX + " " + playerPositionY);
         }
     }
 
