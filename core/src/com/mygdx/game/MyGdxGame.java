@@ -48,7 +48,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set de screen back at black
 
         spriteBatch.begin();
-        character.render(spriteBatch);
+        character.render();
         spriteBatch.end();
         cube.render();
         cube.handleInput();

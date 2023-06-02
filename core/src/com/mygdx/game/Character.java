@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.graphics.Color;
 
 public class Character {
     
@@ -16,17 +21,21 @@ public class Character {
     private int SPEED = 100; //Setting the speed of the main character
     private Rectangle rectangle;
     private ShapeRenderer shapeRenderer;
+    
 
     public Character(Texture texture, float playerPositionX, float playerPositionY){
+        batch = new SpriteBatch();
         this.character = texture;
         this.playerPositionX = playerPositionX;
         this.playerPositionY = playerPositionY;
 
-        rectangle = new Rectangle(playerPositionX, playerPositionY, 64, 64);
+        rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 64, 64);
         shapeRenderer = new ShapeRenderer();
     }
 
     public void update(){
+        //Character movimentation
+        //------------------------------------------------------------
         if(Gdx.input.isKeyPressed(Keys.W)) {
             playerPositionY += SPEED * Gdx.graphics.getDeltaTime();
         } else if (Gdx.input.isKeyPressed(Keys.S)) {
@@ -50,7 +59,10 @@ public class Character {
             playerPositionY = Gdx.graphics.getHeight() - 64;
         }
 
+        //Collision Rectangle position
+        //------------------------------------------------------------
         rectangle.setPosition(playerPositionX, playerPositionY);
+
 
     }
 
@@ -58,17 +70,21 @@ public class Character {
         boolean isOverlapping = rectangle.overlaps(cube.getRectangle());
 
         if(isOverlapping){
-            System.out.println("Collision Detected");
+            System.out.println("Collision Detected" + playerPositionX + " " + playerPositionY);
         }
     }
 
 
-    public void render(SpriteBatch batch){
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-        shapeRenderer.end();
+    public void render(){
+        batch.begin();
         batch.draw(character, playerPositionX, playerPositionY, 64, 64);
+        batch.end();
 
+        //Red Aquare around the hitbox
+        shapeRenderer.begin(ShapeType.Line);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.rect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+        shapeRenderer.end();
     }
 
     public void dispose(){
@@ -81,14 +97,6 @@ public class Character {
 
     public void setCharacter(Texture character) {
         this.character = character;
-    }
-
-    public SpriteBatch getBatch() {
-        return batch;
-    }
-
-    public void setBatch(SpriteBatch batch) {
-        this.batch = batch;
     }
 
     public float getPlayerPositionX() {
