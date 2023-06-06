@@ -4,16 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.util.ArrayList;
 
 public class Bullet {
 
-    private int SPEED = 300; //bullet speed
+    private final int SPEED = 300; //bullet speed
     private SpriteBatch batch;
     private Character character2;
     private static Texture textureBullet;
     private boolean attack;
+    private boolean wasShotted;
+    private ArrayList<Bullet> bullets;
+    private Bullet b;
 
-    float xBullet, yBullet;
+    float xBullet;
+    static float yBullet;
 
     public Bullet(Character character, Texture texture){
         character2 = character;
@@ -21,15 +26,19 @@ public class Bullet {
         this.xBullet = character.getPlayerPositionX()+16;
         this.yBullet = character.getPlayerPositionY()+16;
         textureBullet = texture;
+        wasShotted = false;
+        bullets = new ArrayList<>();
     }
 
     public void generateBullet(){
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 
+        if((Gdx.input.isKeyPressed(Input.Keys.SPACE))){
+            b = new Bullet(character2, textureBullet);
+            bullets.add(b);
             attack = true;
             yBullet = character2.getPlayerPositionY() + 16;
+            b.moveBullet();
         }
-        this.moveBullet();
     }
 
     public void moveBullet(){
@@ -45,7 +54,7 @@ public class Bullet {
     }
 
     public void stopBullet(){
-        if(attack == false) {
+        if(!attack) {
             xBullet = character2.getPlayerPositionX() + 16;
             yBullet = character2.getPlayerPositionY() + 16;
         }
@@ -53,7 +62,10 @@ public class Bullet {
 
     public void render (){
         batch.begin();
-        batch.draw(textureBullet, xBullet, yBullet);
+        for (int i = 0; i < bullets.size(); i++) {
+            Bullet bullet = bullets.get(i);
+            batch.draw(textureBullet, bullet.xBullet, bullet.yBullet);
+        }
         batch.end();
     }
 

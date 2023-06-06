@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public class MyGdxGame extends ApplicationAdapter {
 
     Texture characterTexture, cubeTexture, bulletTexture;
@@ -24,7 +25,7 @@ public class MyGdxGame extends ApplicationAdapter {
     Cube cube;
 
     SpriteBatch spriteBatch;
-    List<Bullet> bullets;
+    //ArrayList<Bullet> bullets = new ArrayList<>();
 
 
 
@@ -37,9 +38,8 @@ public class MyGdxGame extends ApplicationAdapter {
         bulletTexture = new Texture("bullet.png");
         character = new Character(characterTexture, 0, 0);
         spriteBatch = new SpriteBatch();
-
         bullet = new Bullet(character, bulletTexture);
-        bullets = new ArrayList<>();
+
 
 
 
@@ -57,8 +57,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set de screen back at black
 
         spriteBatch.begin();
-        bullet.render();
         bullet.generateBullet();
+        bullet.render();
         character.render();
         spriteBatch.end();
         cube.render();
