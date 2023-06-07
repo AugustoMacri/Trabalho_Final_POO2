@@ -18,7 +18,7 @@ public class Bullet {
     private Bullet b;
 
     float xBullet;
-    static float yBullet;
+    float yBullet;
 
     public Bullet(Character character, Texture texture){
         character2 = character;
@@ -37,7 +37,11 @@ public class Bullet {
             bullets.add(b);
             attack = true;
             yBullet = character2.getPlayerPositionY() + 16;
-            b.moveBullet();
+            bullets.get(0).moveBullet();
+            for(int i = 0; i < bullets.size(); i++){
+                Bullet bullet = bullets.get(i);
+                bullet.moveBullet();
+            }
         }
     }
 
@@ -53,10 +57,11 @@ public class Bullet {
         this.stopBullet();
     }
 
-    public void stopBullet(){
-        if(!attack) {
-            xBullet = character2.getPlayerPositionX() + 16;
-            yBullet = character2.getPlayerPositionY() + 16;
+    public void stopBullet() {
+        if (!attack) {
+            for (int i = 0; i < bullets.size(); i++) {
+                bullets.remove(i);
+            }
         }
     }
 

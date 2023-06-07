@@ -57,7 +57,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set de screen back at black
 
         spriteBatch.begin();
-        bullet.generateBullet();
+        if((Gdx.input.isKeyPressed(Input.Keys.SPACE))){
+            bullet.generateBullet();
+            }
         bullet.render();
         character.render();
         spriteBatch.end();
