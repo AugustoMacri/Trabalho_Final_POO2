@@ -5,22 +5,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
 import java.lang.Math;
 
 
-public class ZombieBuff {
+public class ZombieNormal {
 
     private Texture texture;
     private float x, y, width, height;
     private SpriteBatch batch;
     private Rectangle rectangle;
-    private static int SPEED = 20;
-    private int LIFE = 150;
+    private static int SPEED = 35;
+    private int LIFE = 100;
 
-
-    public ZombieBuff(Texture texture, float x, float y, float width, float height){
+    public ZombieNormal(Texture texture, float x, float y, float width, float height){
         batch = new SpriteBatch();
         this.texture = texture;
         this.x = x;

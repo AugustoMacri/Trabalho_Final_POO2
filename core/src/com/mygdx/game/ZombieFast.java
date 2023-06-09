@@ -10,17 +10,17 @@ import com.badlogic.gdx.math.Rectangle;
 import java.lang.Math;
 
 
-public class ZombieBuff {
+public class ZombieFast {
 
     private Texture texture;
     private float x, y, width, height;
     private SpriteBatch batch;
     private Rectangle rectangle;
-    private static int SPEED = 20;
-    private int LIFE = 150;
+    private static int SPEED = 50;
+    private int LIFE = 65;
 
 
-    public ZombieBuff(Texture texture, float x, float y, float width, float height){
+    public ZombieFast(Texture texture, float x, float y, float width, float height){
         batch = new SpriteBatch();
         this.texture = texture;
         this.x = x;

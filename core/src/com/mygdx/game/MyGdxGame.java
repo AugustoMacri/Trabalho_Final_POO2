@@ -15,11 +15,15 @@ import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-    Texture characterTexture, cubeTexture, enemyTexture; 
+    Texture characterTexture, armTexture, cubeTexture, enemyTextureNormal, enemyTextureFast, enemyTextureBuff; 
     
     Character character;
+    Arm arm;
     Cube cube;
-    ZombieBuff enemy;
+    ZombieNormal enemyNormal;
+    ZombieFast enemyFast;
+    ZombieBuff enemyBuff;
+    CollisionManager collisionManager = new CollisionManager();
 
     SpriteBatch spriteBatch;
 
@@ -34,39 +38,68 @@ public class MyGdxGame extends ApplicationAdapter {
         character = new Character(characterTexture, 0, 0);
         spriteBatch = new SpriteBatch();
 
+        //creating the character
+        //---------------------------------------------------------------------------------        
+        armTexture = new Texture("Arm1.png");
+        arm = new Arm(characterTexture, 0, 0, armTexture, 0, 0);
 
         //creating the cube
         //---------------------------------------------------------------------------------
         cubeTexture = new Texture("Cube.png"); //Still not working!!!!
         cube = new Cube(cubeTexture, 150, 150, 50, 50);
-        spriteBatch = new SpriteBatch();
-
-        //creating the enemy
+        
+        //creating the Normal enemy
         //---------------------------------------------------------------------------------
-        enemyTexture = new Texture("zombie3.png");
-        enemy = new ZombieBuff(enemyTexture, 200, 200, 50, 50);
-        spriteBatch = new SpriteBatch();
+        enemyTextureNormal = new Texture("zombie.png");
+        enemyNormal = new ZombieNormal(enemyTextureNormal, 200, 200, 50, 50);
+
+        //creating the Fast enemy
+        //---------------------------------------------------------------------------------
+        enemyTextureFast = new Texture("zombie2.png");
+        enemyFast = new ZombieFast(enemyTextureFast, 200, 200, 50, 50);
+
+        //creating the Buff enemy
+        //---------------------------------------------------------------------------------
+        enemyTextureBuff = new Texture("zombie3.png");
+        enemyBuff = new ZombieBuff(enemyTextureBuff, 200, 200, 50, 50);
     }
 
     @Override
     public void render () { 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set de screen back at black
 
+        //Render
+        //---------------------------------------------------------------------------------
         spriteBatch.begin();
         character.render();
-        enemy.render();
+        arm.render();
+        enemyNormal.render();
+        enemyFast.render();
+        enemyBuff.render();
         spriteBatch.end();
         cube.render();
         cube.handleInput();
+
+        //Updates
+        //---------------------------------------------------------------------------------
         character.update();
-        enemy.update(character);
-        character.detectCollision(cube);
-        character.detectCollision(enemy);
+        arm.update(character);
+        enemyNormal.update(character);
+        enemyFast.update(character);
+        enemyBuff.update(character);
+
+        //Collision
+        //---------------------------------------------------------------------------------
+        collisionManager.checkCollision(character, enemyNormal);
+        collisionManager.checkCollision(character, enemyFast);
+        collisionManager.checkCollision(character, enemyBuff);
+        collisionManager.checkCollision(character, cube);
     }
 
     @Override
     public void dispose(){
         character.dispose();
+        arm.dispose();
         spriteBatch.dispose();
         cube.dispose();
     }

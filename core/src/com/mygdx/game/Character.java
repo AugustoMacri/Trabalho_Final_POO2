@@ -14,13 +14,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.Color;
 
 public class Character {
-    
     private Texture character;
     private SpriteBatch batch;
     private float playerPositionX, playerPositionY;
-    private int SPEED = 100; //Setting the speed of the main character
     private Rectangle rectangle;
     private ShapeRenderer shapeRenderer;
+    private int SPEED = 100; 
+    private int LIFE = 6000;
     
 
     public Character(Texture texture, float playerPositionX, float playerPositionY){
@@ -29,11 +29,12 @@ public class Character {
         this.playerPositionX = playerPositionX;
         this.playerPositionY = playerPositionY;
 
-        rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 64, 64);
+        rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 25, 60);
         shapeRenderer = new ShapeRenderer();
     }
 
     public void update(){
+        if(LIFE > 0){
         //Character movimentation
         //------------------------------------------------------------
         if(Gdx.input.isKeyPressed(Keys.W)) {
@@ -50,49 +51,34 @@ public class Character {
 
         if(playerPositionX < 0){
             playerPositionX = 0;
-        } else if (playerPositionX > Gdx.graphics.getWidth() - 64){
-            playerPositionX = Gdx.graphics.getWidth() - 64;
+        } else if (playerPositionX > Gdx.graphics.getWidth() - 32){
+            playerPositionX = Gdx.graphics.getWidth() - 32;
         }
         if(playerPositionY < 0) {
             playerPositionY = 0;
         } else if (playerPositionY > Gdx.graphics.getHeight() - 64) {
             playerPositionY = Gdx.graphics.getHeight() - 64;
         }
-
+        
         //Collision Rectangle position
         //------------------------------------------------------------
         rectangle.setPosition(playerPositionX, playerPositionY);
-
-
-    }
-
-    public void detectCollision(Cube cube){
-        boolean isOverlapping = rectangle.overlaps(cube.getRectangle());
-
-        if(isOverlapping){
-            System.out.println("Collision Detected with cube " + playerPositionX + " " + playerPositionY);
-        }
-    }
-
-    public void detectCollision(ZombieBuff enemy){
-        boolean isOverlapping = rectangle.overlaps(enemy.getRectangle());
-
-        if(isOverlapping){
-            System.out.println("Collision Detected with Zombie " + playerPositionX + " " + playerPositionY);
+        
         }
     }
 
 
     public void render(){
-        batch.begin();
-        batch.draw(character, playerPositionX, playerPositionY, 64, 64);
+        if(LIFE > 0)
+        {batch.begin();
+        batch.draw(character, playerPositionX - 20, playerPositionY, 64, 64);
         batch.end();
 
         //Red Aquare around the hitbox
         shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.rect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-        shapeRenderer.end();
+        shapeRenderer.end();}
     }
 
     public void dispose(){
@@ -130,4 +116,23 @@ public class Character {
     public void setSPEED(int sPEED) {
         SPEED = sPEED;
     }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
+
+    public int getLIFE() {
+        return LIFE;
+    }
+
+    public void setLIFE(int lIFE) {
+        LIFE = lIFE;
+    }
+
+        
+
 }
