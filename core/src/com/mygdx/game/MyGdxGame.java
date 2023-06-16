@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -9,21 +10,25 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import java.util.List;
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public class MyGdxGame extends ApplicationAdapter {
 
-    Texture characterTexture, armTexture, cubeTexture, enemyTextureNormal, enemyTextureFast, enemyTextureBuff; 
+    Texture characterTexture, armTexture, cubeTexture, enemyTextureNormal, enemyTextureFast, enemyTextureBuff, enemyTexture; 
     
     Character character;
     Arm arm;
+    HealthBar healthBar;
     Cube cube;
     ZombieNormal enemyNormal;
     ZombieFast enemyFast;
     ZombieBuff enemyBuff;
     CollisionManager collisionManager = new CollisionManager();
+    ZombieTest enemy;
 
     SpriteBatch spriteBatch;
 
@@ -36,9 +41,10 @@ public class MyGdxGame extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         characterTexture = new Texture("character1.Right.png");
         character = new Character(characterTexture, 0, 0);
+        healthBar = new HealthBar();
         spriteBatch = new SpriteBatch();
 
-        //creating the character
+        //creating the arm
         //---------------------------------------------------------------------------------        
         armTexture = new Texture("Arm1.png");
         arm = new Arm(characterTexture, 0, 0, armTexture, 0, 0);
@@ -62,6 +68,11 @@ public class MyGdxGame extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         enemyTextureBuff = new Texture("zombie3.png");
         enemyBuff = new ZombieBuff(enemyTextureBuff, 200, 200, 50, 50);
+
+        //creating the enemy
+        //---------------------------------------------------------------------------------
+        enemyTexture = new Texture("zombie3.png");
+        ZombieTest enemy = new ZombieTest(enemyTexture, 200, 200, 50, 50);
     }
 
     @Override
@@ -72,6 +83,8 @@ public class MyGdxGame extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         spriteBatch.begin();
         character.render();
+        arm.shoot();
+        healthBar.render(character);
         arm.render();
         enemyNormal.render();
         enemyFast.render();
@@ -83,6 +96,7 @@ public class MyGdxGame extends ApplicationAdapter {
         //Updates
         //---------------------------------------------------------------------------------
         character.update();
+        healthBar.update(character);
         arm.update(character);
         enemyNormal.update(character);
         enemyFast.update(character);

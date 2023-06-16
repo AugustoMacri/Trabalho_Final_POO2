@@ -14,13 +14,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.Color;
 
 public class Character {
-    private Texture character;
+    private Texture character, bulletTexture;
     private SpriteBatch batch;
     private float playerPositionX, playerPositionY;
     private Rectangle rectangle;
     private ShapeRenderer shapeRenderer;
     private int SPEED = 100; 
-    private int LIFE = 6000;
+    private int LIFE = 1000;
     
 
     public Character(Texture texture, float playerPositionX, float playerPositionY){
@@ -32,6 +32,7 @@ public class Character {
         rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 25, 60);
         shapeRenderer = new ShapeRenderer();
     }
+
 
     public void update(){
         if(LIFE > 0){
@@ -59,6 +60,7 @@ public class Character {
         } else if (playerPositionY > Gdx.graphics.getHeight() - 64) {
             playerPositionY = Gdx.graphics.getHeight() - 64;
         }
+        
         
         //Collision Rectangle position
         //------------------------------------------------------------
@@ -133,6 +135,29 @@ public class Character {
         LIFE = lIFE;
     }
 
-        
+    public Texture getBulletTexture() {
+        return bulletTexture;
+    }
+
+    public void setBulletTexture(Texture bulletTexture) {
+        this.bulletTexture = bulletTexture;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
+    }
+
+    public ShapeRenderer getShapeRenderer() {
+        return shapeRenderer;
+    }
+
+    public void setShapeRenderer(ShapeRenderer shapeRenderer) {
+        this.shapeRenderer = shapeRenderer;
+    }
+    
 
 }
