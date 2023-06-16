@@ -18,7 +18,8 @@ import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-    Texture characterTexture, armTexture, cubeTexture, enemyTextureNormal, enemyTextureFast, enemyTextureBuff, enemyTexture; 
+    Texture backGroundTexture, characterTexture, armTexture, cubeTexture, enemyTextureNormal, enemyTextureFast, enemyTextureBuff, enemyTexture;
+    BackGround backGround;
     
     Character character;
     Arm arm;
@@ -42,6 +43,10 @@ public class MyGdxGame extends ApplicationAdapter {
         character = new Character(characterTexture, 0, 0);
         healthBar = new HealthBar();
         spriteBatch = new SpriteBatch();
+
+        //creating the backGround
+        backGroundTexture = new Texture("backGround.png");
+        backGround = new BackGround(backGroundTexture);
 
         //creating the arm
         //---------------------------------------------------------------------------------        
@@ -81,6 +86,7 @@ public class MyGdxGame extends ApplicationAdapter {
         //Render
         //---------------------------------------------------------------------------------
         spriteBatch.begin();
+        backGround.render();
         character.render();
         arm.shoot();
         healthBar.render(character);
@@ -91,6 +97,7 @@ public class MyGdxGame extends ApplicationAdapter {
         spriteBatch.end();
         cube.render();
         cube.handleInput();
+
         enemy.render();
 
         //Updates
