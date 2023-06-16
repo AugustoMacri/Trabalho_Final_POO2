@@ -29,7 +29,6 @@ public class MyGdxGame extends ApplicationAdapter {
     ZombieBuff enemyBuff;
     CollisionManager collisionManager = new CollisionManager();
     ZombieTest enemy;
-
     SpriteBatch spriteBatch;
 
 
@@ -72,7 +71,7 @@ public class MyGdxGame extends ApplicationAdapter {
         //creating the enemy
         //---------------------------------------------------------------------------------
         enemyTexture = new Texture("zombie3.png");
-        ZombieTest enemy = new ZombieTest(enemyTexture, 200, 200, 50, 50);
+        enemy = new ZombieTest(enemyTexture, 200, 200, 50, 50);
     }
 
     @Override
@@ -92,6 +91,7 @@ public class MyGdxGame extends ApplicationAdapter {
         spriteBatch.end();
         cube.render();
         cube.handleInput();
+        enemy.render();
 
         //Updates
         //---------------------------------------------------------------------------------
@@ -101,6 +101,7 @@ public class MyGdxGame extends ApplicationAdapter {
         enemyNormal.update(character);
         enemyFast.update(character);
         enemyBuff.update(character);
+        enemy.update(character);
 
         //Collision
         //---------------------------------------------------------------------------------
@@ -108,6 +109,7 @@ public class MyGdxGame extends ApplicationAdapter {
         collisionManager.checkCollision(character, enemyFast);
         collisionManager.checkCollision(character, enemyBuff);
         collisionManager.checkCollision(character, cube);
+        collisionManager.checkCollision(character, enemy);
     }
 
     @Override

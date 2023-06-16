@@ -18,7 +18,7 @@ public class CollisionManager {
             boolean isOverlapping = obj1.getRectangle().overlaps(obj2.getRectangle());
 
             if(isOverlapping){
-            obj1.setLIFE(obj1.getLIFE() - 5);
+            obj1.setLIFE(obj1.getLIFE() - 1);
             System.out.println(obj1.getLIFE());
             }
         }
@@ -29,7 +29,7 @@ public class CollisionManager {
             boolean isOverlapping = obj1.getRectangle().overlaps(obj2.getRectangle());
 
             if(isOverlapping){
-            obj1.setLIFE(obj1.getLIFE() - 5);
+            obj1.setLIFE(obj1.getLIFE() - 10);
             System.out.println(obj1.getLIFE());
             }
         }
@@ -43,12 +43,12 @@ public class CollisionManager {
         }
     }
 
-    public void checkCollision(Character obj1, Enemy obj2){
+    public void checkCollision(Character obj1, ZombieTest obj2){
         if(obj1.getLIFE() > 0){
             boolean isOverlapping = obj1.getRectangle().overlaps(obj2.getRectangle());
 
             if(isOverlapping){
-            obj1.setLIFE(obj1.getLIFE() - 5000);
+            obj1.setLIFE(obj1.getLIFE() - obj2.getDANO());
             System.out.println(obj1.getLIFE());
             }
         }

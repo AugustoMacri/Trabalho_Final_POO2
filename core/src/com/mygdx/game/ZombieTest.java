@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class ZombieTest extends Enemy{
-    private static int SPEED = 35;
+    private static int SPEED = 135;
     private int LIFE = 100; 
+    private int DANO = 1000;
     
     public ZombieTest(Texture texture, float x, float y, float width, float height){
         super(texture, x, y, width, height);
@@ -53,6 +54,16 @@ public class ZombieTest extends Enemy{
 
     public void setLIFE(int lIFE) {
         LIFE = lIFE;
+    }
+
+
+    public int getDANO() {
+        return DANO;
+    }
+
+
+    public void setDANO(int dANO) {
+        DANO = dANO;
     }
 
     

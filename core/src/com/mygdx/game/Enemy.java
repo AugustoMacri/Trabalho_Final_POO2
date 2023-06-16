@@ -14,8 +14,6 @@ public abstract class Enemy {
     protected float x, y, width, height;
     protected SpriteBatch batch;
     protected Rectangle rectangle;
-    protected int SPEED = 20;
-    protected int LIFE = 150;
 
     public Enemy(Texture texture, float x, float y, float width, float height){
         batch = new SpriteBatch();
