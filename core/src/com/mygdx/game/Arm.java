@@ -17,8 +17,10 @@ public class Arm extends Character{
     private float positionArmY;
     private SpriteBatch batch;
     private boolean arm = true;
+    private CollisionManager collisionManager;
     private static ArrayList <Bullet> bullets;
     private float shootCooldown = 0f;
+
 
     
     public Arm(Texture texture, float playerPositionX, float playerPositionY, Texture textureArm, float positionArmX, float positionArmY){
@@ -29,8 +31,6 @@ public class Arm extends Character{
         this.positionArmY = positionArmY;
         bullets = new ArrayList<>();
         bulletTexture = new Texture("bullet.png");
-
-
     }
 
     public void shoot(){
@@ -44,6 +44,7 @@ public class Arm extends Character{
             if(Gdx.input.isKeyPressed(Keys.SPACE) && shootCooldown <= 0f){
                 Bullet bullet = new Bullet(this, bulletTexture);
                 bullets.add(bullet.clone());
+
                 shootCooldown = 0.25f;
             }
             if(shootCooldown > 0f){
@@ -56,7 +57,7 @@ public class Arm extends Character{
         positionArmX = character.getPlayerPositionX();
         positionArmY = character.getPlayerPositionY();
 
-        if(character.getLIFE() == 0){
+        if(character.getLIFE() == 0 || character.getLIFE() < 0){
             arm = false;
         }
 

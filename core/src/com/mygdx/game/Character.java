@@ -19,9 +19,9 @@ public class Character {
     private float playerPositionX, playerPositionY;
     private Rectangle rectangle;
     private ShapeRenderer shapeRenderer;
+    private Vector2 previousPosition;
     private int SPEED = 100; 
-    private int LIFE = 1000;
-    
+    private int LIFE = 6000;    
 
     public Character(Texture texture, float playerPositionX, float playerPositionY){
         batch = new SpriteBatch();
@@ -30,6 +30,7 @@ public class Character {
         this.playerPositionY = playerPositionY;
 
         rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 25, 60);
+        previousPosition = new Vector2(playerPositionX, playerPositionY);
         shapeRenderer = new ShapeRenderer();
     }
 
@@ -61,10 +62,10 @@ public class Character {
             playerPositionY = Gdx.graphics.getHeight() - 64;
         }
         
-        
         //Collision Rectangle position
         //------------------------------------------------------------
         rectangle.setPosition(playerPositionX, playerPositionY);
+        previousPosition.set(playerPositionX, playerPositionY);
         
         }
     }
@@ -158,6 +159,17 @@ public class Character {
     public void setShapeRenderer(ShapeRenderer shapeRenderer) {
         this.shapeRenderer = shapeRenderer;
     }
+
+
+    public Vector2 getPreviousPosition() {
+        return previousPosition;
+    }
+
+
+    public void setPreviousPosition(Vector2 previousPosition) {
+        this.previousPosition = previousPosition;
+    }
+    
     
 
 }

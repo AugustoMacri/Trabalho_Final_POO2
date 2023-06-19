@@ -2,33 +2,18 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Rectangle;
-import java.lang.Math;
 
-
-public class ZombieNormal {
-
-    private Texture texture;
-    private float x, y, width, height;
-    private SpriteBatch batch;
-    private Rectangle rectangle;
+public class ZombieNormal extends Enemy{
     private static int SPEED = 35;
     private int LIFE = 100;
+    private int DANO = 5;
+
 
     public ZombieNormal(Texture texture, float x, float y, float width, float height){
-        batch = new SpriteBatch();
-        this.texture = texture;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-
-        rectangle = new Rectangle(x, y, 64, 64);
+        super(texture, x, y, width, height);
     }
 
+    @Override
     public void update(Character character){
 
         //Zombie movimentation
@@ -52,28 +37,31 @@ public class ZombieNormal {
         rectangle.setPosition(x, y);
     }
 
-    public void render(){
-        batch.begin();
-        batch.draw(texture, x, y, 64, 64);
-        batch.end();
+    public static int getSPEED() {
+        return SPEED;
     }
 
-    public SpriteBatch getBatch() {
-        return batch;
+    public static void setSPEED(int sPEED) {
+        SPEED = sPEED;
     }
 
-    public void setBatch(SpriteBatch batch) {
-        this.batch = batch;
+    public int getLIFE() {
+        return LIFE;
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
+    public void setLIFE(int lIFE) {
+        LIFE = lIFE;
     }
 
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
+    public int getDANO() {
+        return DANO;
     }
 
+    public void setDANO(int dANO) {
+        DANO = dANO;
+    }
+
+    
     
     
 }

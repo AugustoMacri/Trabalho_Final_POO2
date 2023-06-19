@@ -25,7 +25,7 @@ public class HealthBar {
     }
 
     public void render(Character character){
-        width = (lenght * character.getLIFE()) / 100;
+        width = (lenght * character.getLIFE()) / 600;
 
         // Draw de health bar 
         ShapeRenderer shapeRenderer = new ShapeRenderer();
