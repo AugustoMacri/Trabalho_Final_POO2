@@ -6,13 +6,12 @@ import com.badlogic.gdx.math.Vector2;
 
 
 public class ZombieFast extends Enemy{
-    private static int SPEED = 50;
-    private int LIFE = 65;
-    private int DANO = 1;
-
-
+   
     public ZombieFast(Texture texture, float x, float y, float width, float height){
         super(texture, x, y, width, height);
+        LIFE = 65;
+        SPEED = 50;
+        DANO = 1;
     }
 
     @Override
@@ -41,30 +40,4 @@ public class ZombieFast extends Enemy{
         rectangle.setPosition(x, y);
     }
 
-    public static int getSPEED() {
-        return SPEED;
-    }
-
-    public static void setSPEED(int sPEED) {
-        SPEED = sPEED;
-    }
-
-    public int getLIFE() {
-        return LIFE;
-    }
-
-    public void setLIFE(int lIFE) {
-        LIFE = lIFE;
-    }
-
-    public int getDANO() {
-        return DANO;
-    }
-
-    public void setDANO(int dANO) {
-        DANO = dANO;
-    }
-
-    
-    
 }

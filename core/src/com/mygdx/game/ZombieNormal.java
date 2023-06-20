@@ -5,13 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 public class ZombieNormal extends Enemy{
-    private static int SPEED = 35;
-    private int LIFE = 100;
-    private int DANO = 5;
-
-
+    
     public ZombieNormal(Texture texture, float x, float y, float width, float height){
         super(texture, x, y, width, height);
+        LIFE = 100;
+        SPEED = 35;
+        DANO = 5;
     }
 
     @Override
@@ -38,32 +37,5 @@ public class ZombieNormal extends Enemy{
         //------------------------------------------------------------
         rectangle.setPosition(x, y);
     }
-
-    public static int getSPEED() {
-        return SPEED;
-    }
-
-    public static void setSPEED(int sPEED) {
-        SPEED = sPEED;
-    }
-
-    public int getLIFE() {
-        return LIFE;
-    }
-
-    public void setLIFE(int lIFE) {
-        LIFE = lIFE;
-    }
-
-    public int getDANO() {
-        return DANO;
-    }
-
-    public void setDANO(int dANO) {
-        DANO = dANO;
-    }
-
-    
-    
     
 }

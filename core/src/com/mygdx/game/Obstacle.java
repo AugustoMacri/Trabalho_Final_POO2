@@ -28,12 +28,7 @@ public class Obstacle {
     }
 
 
-    public void render(){
-        shapeRenderer.begin(ShapeType.Line);
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-        shapeRenderer.end();
-    }
+    
 
     public float getX() {
         return x;

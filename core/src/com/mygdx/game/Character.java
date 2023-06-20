@@ -30,7 +30,6 @@ public class Character {
         this.playerPositionY = playerPositionY;
 
         rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 25, 60);
-        shapeRenderer = new ShapeRenderer();
     }
 
 
@@ -68,22 +67,17 @@ public class Character {
             //------------------------------------------------------------
             rectangle.setPosition(playerPositionX, playerPositionY);
 
-
         }
     }
 
 
     public void render(){
         if(LIFE > 0)
-        {batch.begin();
+        {
+        batch.begin();
         batch.draw(character, playerPositionX - 20, playerPositionY, 64, 64);
         batch.end();
-
-        //Red Aquare around the hitbox
-        shapeRenderer.begin(ShapeType.Line);
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-        shapeRenderer.end();}
+        }
     }
 
     public void dispose(){

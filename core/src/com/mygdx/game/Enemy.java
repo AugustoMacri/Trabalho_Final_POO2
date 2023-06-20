@@ -17,7 +17,9 @@ public abstract class Enemy {
     protected SpriteBatch batch;
     protected Rectangle rectangle;
     protected Vector2 previousPosition;
-
+    protected int SPEED;
+    protected int LIFE;
+    protected int DANO;
 
     public Enemy(Texture texture, float x, float y, float width, float height){
         batch = new SpriteBatch();
@@ -27,16 +29,16 @@ public abstract class Enemy {
         this.width = width;
         this.height = height;
 
-        rectangle = new Rectangle(x, y, 64, 64);
-
+        rectangle = new Rectangle(x, y, 25, 50);
     }
 
     public abstract void update(Character character);
 
     public void render(){
         batch.begin();
-        batch.draw(texture, x, y, 64, 64);
+        batch.draw(texture, x - 20, y, 64, 64);
         batch.end();
+
     }
 
     public SpriteBatch getBatch() {
@@ -77,6 +79,30 @@ public abstract class Enemy {
 
     public void setY(float y) {
         this.y = y;
+    }
+
+    public int getSPEED() {
+        return SPEED;
+    }
+
+    public void setSPEED(int sPEED) {
+        SPEED = sPEED;
+    }
+
+    public int getLIFE() {
+        return LIFE;
+    }
+
+    public void setLIFE(int lIFE) {
+        LIFE = lIFE;
+    }
+
+    public int getDANO() {
+        return DANO;
+    }
+
+    public void setDANO(int dANO) {
+        DANO = dANO;
     }
 
     

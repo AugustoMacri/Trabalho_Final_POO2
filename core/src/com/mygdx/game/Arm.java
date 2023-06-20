@@ -30,7 +30,7 @@ public class Arm extends Character{
         this.positionArmX = positionArmX;
         this.positionArmY = positionArmY;
         bullets = new ArrayList<>();
-        bulletTexture = new Texture("bullet.png");
+        bulletTexture = new Texture("images/bullet.png");
     }
 
     public void shoot(){
@@ -53,6 +53,7 @@ public class Arm extends Character{
         }
     }
 
+
     public void update(Character character){
         positionArmX = character.getPlayerPositionX();
         positionArmY = character.getPlayerPositionY();
@@ -65,8 +66,21 @@ public class Arm extends Character{
 
     public void render(){
         if(arm == true){
+            float pivotX = positionArmX + 2;
+            float pivotY = positionArmY - 30;
+            float angle = 0f;
+            if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+                angle = 180f;
+            } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+                angle = 0f;
+            } else if (Gdx.input.isKeyPressed(Keys.UP)) {
+                angle = 90f;
+            } else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+                angle = 270f;
+            }
+                    
             batch.begin();
-            batch.draw(textureArm, positionArmX - 10, positionArmY, 64, 64);
+            batch.draw(textureArm, pivotX, pivotY, 5, 3, 32, 32, 1f, 1f, angle, 0, 0, 32, 32, false, false);
             batch.end();
         }
     }

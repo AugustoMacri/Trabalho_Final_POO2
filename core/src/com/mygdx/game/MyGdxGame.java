@@ -48,29 +48,29 @@ public class MyGdxGame extends ApplicationAdapter {
 
         //creating the character
         //---------------------------------------------------------------------------------
-        characterTexture = new Texture("character1.Right.png");
+        characterTexture = new Texture("images/character1.Right.png");
         character = new Character(characterTexture, 0, 0);
         healthBar = new HealthBar();
-        armTexture = new Texture("Arm1.png");
+        armTexture = new Texture("images/gun.png");
         arm = new Arm(characterTexture, 0, 0, armTexture, 0, 0);
 
         //creating the backGround
         //---------------------------------------------------------------------------------
-        backGroundTexture = new Texture("Fundo_Fase1.png");
+        backGroundTexture = new Texture("images/Fundo_Fase1.png");
         backGround = new BackGround(backGroundTexture);
 
         //creating the cube
         //---------------------------------------------------------------------------------
-        cubeTexture = new Texture("Cube.png"); //Still not working!!!!
+        cubeTexture = new Texture("images/Cube.png"); //Still not working!!!!
         cube = new Cube(cubeTexture, 150, 150, 50, 50);
         
         //creating Enemys
         //---------------------------------------------------------------------------------
-        enemyTextureNormal = new Texture("zombie.png");
+        enemyTextureNormal = new Texture("images/zombie.png");
         enemyNormal = new ZombieNormal(enemyTextureNormal, 200, 200, 50, 50);
-        enemyTextureFast = new Texture("zombie2.png");
+        enemyTextureFast = new Texture("images/zombie2.png");
         enemyFast = new ZombieFast(enemyTextureFast, 200, 200, 50, 50);
-        enemyTextureBuff = new Texture("zombie3.png");
+        enemyTextureBuff = new Texture("images/zombie3.png");
         enemyBuff = new ZombieBuff(enemyTextureBuff, 200, 200, 50, 50);
 
         //Creating Obstacle
@@ -108,19 +108,7 @@ public class MyGdxGame extends ApplicationAdapter {
         spriteBatch.end();
         cube.render();
         cube.handleInput();
-        //obstacles
-        mall.render();
-        carV.render();
-        carB.render();
-        carO.render();
-        carO2.render();
-        carO3.render();
-        p1.render();
-        p2.render();
-        p3.render();
-        p4.render();
-        garbage.render();
-        barrier.render();
+        
 
         //Updates
         //---------------------------------------------------------------------------------
