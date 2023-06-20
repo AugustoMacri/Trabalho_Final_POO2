@@ -1,9 +1,11 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,6 +16,8 @@ public abstract class Enemy {
     protected float x, y, width, height;
     protected SpriteBatch batch;
     protected Rectangle rectangle;
+    protected Vector2 previousPosition;
+
 
     public Enemy(Texture texture, float x, float y, float width, float height){
         batch = new SpriteBatch();
@@ -24,6 +28,7 @@ public abstract class Enemy {
         this.height = height;
 
         rectangle = new Rectangle(x, y, 64, 64);
+
     }
 
     public abstract void update(Character character);
@@ -49,5 +54,31 @@ public abstract class Enemy {
     public void setRectangle(Rectangle rectangle) {
         this.rectangle = rectangle;
     }
+
+    public Vector2 getPreviousPosition() {
+        return previousPosition;
+    }
+
+    public void setPreviousPosition(Vector2 previousPosition) {
+        this.previousPosition = previousPosition;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    
     
 }

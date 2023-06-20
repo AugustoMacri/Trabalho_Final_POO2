@@ -44,7 +44,7 @@ public class MyGdxGame extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         backGroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/battle.wav"));
         backGroundMusic.setLooping(true);
-        backGroundMusic.play();
+        //backGroundMusic.play();
 
         //creating the character
         //---------------------------------------------------------------------------------
@@ -127,9 +127,9 @@ public class MyGdxGame extends ApplicationAdapter {
         character.update();
         healthBar.update(character);
         arm.update(character);
-        //enemyNormal.update(character);
-        //enemyFast.update(character);
-        //enemyBuff.update(character);
+        enemyNormal.update(character);
+        enemyFast.update(character);
+        enemyBuff.update(character);
 
         //Collision
         //---------------------------------------------------------------------------------
@@ -149,6 +149,42 @@ public class MyGdxGame extends ApplicationAdapter {
         collisionManager.checkCollision(character, p4);
         collisionManager.checkCollision(character, garbage);
         collisionManager.checkCollision(character, barrier);
+        collisionManager.checkCollision(enemyNormal, mall);
+        collisionManager.checkCollision(enemyNormal, carV);
+        collisionManager.checkCollision(enemyNormal, carB);
+        collisionManager.checkCollision(enemyNormal, carO);
+        collisionManager.checkCollision(enemyNormal, carO2);
+        collisionManager.checkCollision(enemyNormal, carO3);
+        collisionManager.checkCollision(enemyNormal, p1);
+        collisionManager.checkCollision(enemyNormal, p2);
+        collisionManager.checkCollision(enemyNormal, p3);
+        collisionManager.checkCollision(enemyNormal, p4);
+        collisionManager.checkCollision(enemyNormal, garbage);
+        collisionManager.checkCollision(enemyNormal, barrier);
+        collisionManager.checkCollision(enemyFast, mall);
+        collisionManager.checkCollision(enemyFast, carV);
+        collisionManager.checkCollision(enemyFast, carB);
+        collisionManager.checkCollision(enemyFast, carO);
+        collisionManager.checkCollision(enemyFast, carO2);
+        collisionManager.checkCollision(enemyFast, carO3);
+        collisionManager.checkCollision(enemyFast, p1);
+        collisionManager.checkCollision(enemyFast, p2);
+        collisionManager.checkCollision(enemyFast, p3);
+        collisionManager.checkCollision(enemyFast, p4);
+        collisionManager.checkCollision(enemyFast, garbage);
+        collisionManager.checkCollision(enemyFast, barrier);
+        collisionManager.checkCollision(enemyBuff, mall);
+        collisionManager.checkCollision(enemyBuff, carV);
+        collisionManager.checkCollision(enemyBuff, carB);
+        collisionManager.checkCollision(enemyBuff, carO);
+        collisionManager.checkCollision(enemyBuff, carO2);
+        collisionManager.checkCollision(enemyBuff, carO3);
+        collisionManager.checkCollision(enemyBuff, p1);
+        collisionManager.checkCollision(enemyBuff, p2);
+        collisionManager.checkCollision(enemyBuff, p3);
+        collisionManager.checkCollision(enemyBuff, p4);
+        collisionManager.checkCollision(enemyBuff, garbage);
+        collisionManager.checkCollision(enemyBuff, barrier);
     }
 
     @Override

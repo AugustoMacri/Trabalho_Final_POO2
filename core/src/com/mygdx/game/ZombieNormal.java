@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 public class ZombieNormal extends Enemy{
     private static int SPEED = 35;
@@ -15,6 +16,7 @@ public class ZombieNormal extends Enemy{
 
     @Override
     public void update(Character character){
+        previousPosition = new Vector2(x, y);
 
         //Zombie movimentation
         //------------------------------------------------------------
