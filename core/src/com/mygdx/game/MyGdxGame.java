@@ -4,6 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.Color;
@@ -18,6 +20,7 @@ import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
 
+    private Music backGroundMusic;
     Texture backGroundTexture, characterTexture, armTexture, cubeTexture, enemyTextureNormal, enemyTextureFast, enemyTextureBuff, enemyTexture;
     BackGround backGround;
     Obstacle mall, carV, carB, carO, carO2, carO3, p1, p2, p3, p4, garbage, barrier;
@@ -36,6 +39,12 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create () {
         spriteBatch = new SpriteBatch();
+
+        //Background Music
+        //---------------------------------------------------------------------------------
+        backGroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/battle.wav"));
+        backGroundMusic.setLooping(true);
+        backGroundMusic.play();
 
         //creating the character
         //---------------------------------------------------------------------------------
@@ -148,5 +157,6 @@ public class MyGdxGame extends ApplicationAdapter {
         arm.dispose();
         spriteBatch.dispose();
         cube.dispose();
+        backGroundMusic.dispose();
     }
 }

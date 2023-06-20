@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.math.Rectangle;
+
 public class CollisionManager {
 
     public void checkCollision(Character obj1, ZombieNormal obj2){
@@ -32,15 +34,9 @@ public class CollisionManager {
         }
     }
 
-    public void checkCollision(Character obj1, Obstacle obj2) {
-        boolean isOverlapping = obj1.getRectangle().overlaps(obj2.getRectangle());
-
-        if (isOverlapping) {
-            obj1.setPlayerPositionX(obj1.getPreviousPosition().x);
-            obj1.setPlayerPositionY(obj1.getPreviousPosition().y);
-            System.out.println("!");
-        }
-   }
+    public void checkCollision(Character character, Obstacle obstacle) {
+    
+    }
 
     //
     public void checkCollision(ZombieNormal obj1, Bullet obj2){

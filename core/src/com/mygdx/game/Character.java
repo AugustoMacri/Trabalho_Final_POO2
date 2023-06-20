@@ -30,7 +30,6 @@ public class Character {
         this.playerPositionY = playerPositionY;
 
         rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 25, 60);
-        previousPosition = new Vector2(playerPositionX, playerPositionY);
         shapeRenderer = new ShapeRenderer();
     }
 
@@ -65,8 +64,7 @@ public class Character {
         //Collision Rectangle position
         //------------------------------------------------------------
         rectangle.setPosition(playerPositionX, playerPositionY);
-        previousPosition.set(playerPositionX, playerPositionY);
-        
+
         }
     }
 
@@ -168,8 +166,6 @@ public class Character {
 
     public void setPreviousPosition(Vector2 previousPosition) {
         this.previousPosition = previousPosition;
-    }
-    
-    
+    }    
 
 }
