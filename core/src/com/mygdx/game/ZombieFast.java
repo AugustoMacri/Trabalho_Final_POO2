@@ -6,7 +6,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
+<<<<<<< Updated upstream
 
+=======
+import com.badlogic.gdx.math.MathUtils;
+>>>>>>> Stashed changes
 import java.util.Iterator;
 
 import static com.mygdx.game.MyGdxGame.enemies;
@@ -17,10 +21,11 @@ public class ZombieFast extends Enemy{
     public ZombieFast(Texture texture, float x, float y, float width, float height){
         super(texture, x, y, width, height);
         LIFE = 65;
-        SPEED = 50;
+        SPEED = 60;
         DANO = 1;
     }
 
+<<<<<<< Updated upstream
     @Override
     public void spawnEnemies() {
             ZombieFast enemy = new ZombieFast(texture, MathUtils.random
@@ -34,6 +39,38 @@ public class ZombieFast extends Enemy{
     public void update(Character character){
         if(TimeUtils.nanoTime() - lastEnemyTime > 1000000000){
             this.spawnEnemies();
+=======
+    public static void spawnEnemies(Texture texture) {
+        ZombieFast enemy = new ZombieFast(texture, Gdx.graphics.getWidth(), MathUtils.random
+                (0, Gdx.graphics.getHeight() - texture.getHeight()), texture.getWidth(), texture.getHeight());
+        lastEnemyTime = TimeUtils.nanoTime();
+        enemies.add(enemy);
+    }
+
+    @Override
+    public void update(Character character) {
+        if (TimeUtils.nanoTime() - lastEnemyTime > 8.0f) {
+            this.spawnEnemies(texture);
+            lastEnemyTime = 0;
+        }
+
+        previousPosition = new Vector2(x, y);
+
+        //Zombie movimentation
+        //------------------------------------------------------------
+        if (x != character.getPlayerPositionX() || y != character.getPlayerPositionY()) {
+            float deltaX = character.getPlayerPositionX() - x;
+            float deltaY = character.getPlayerPositionY() - y;
+            float angle = (float) Math.atan2(deltaY, deltaX);   //Calculate the angle between the character and the zombie
+
+            //Calculating the new x and y coordinate
+            float newX = (float) (x + SPEED * Math.cos(angle) * Gdx.graphics.getDeltaTime()); //Math.cos(angle) provides the x of the enemy movimentation thru the angle
+            float newY = (float) (y + SPEED * Math.sin(angle) * Gdx.graphics.getDeltaTime()); //Math.sin(angle) provides the y of the enemy movimentation thru the angle
+
+            x = newX;
+            y = newY;
+
+>>>>>>> Stashed changes
         }
         for(Iterator<Enemy> iter = enemies.iterator(); iter.hasNext();) {
             Enemy enemy = iter.next();
@@ -61,5 +98,4 @@ public class ZombieFast extends Enemy{
             rectangle.setPosition(x, y);
         }
     }
-
 }
