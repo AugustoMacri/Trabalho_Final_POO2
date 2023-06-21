@@ -42,14 +42,18 @@ public class Character {
             //------------------------------------------------------------
             if(Gdx.input.isKeyPressed(Keys.W)) {
                 playerPositionY += SPEED * Gdx.graphics.getDeltaTime();
+                character = new Texture("images/Character1.UP.png");
             } else if (Gdx.input.isKeyPressed(Keys.S)) {
                 playerPositionY -= SPEED * Gdx.graphics.getDeltaTime();
+                character = new Texture("images/character1.Down.png");
             }
 
             if(Gdx.input.isKeyPressed(Keys.D)) {
                 playerPositionX += SPEED * Gdx.graphics.getDeltaTime();
+                character = new Texture("images/character1.Right.png");
             } else if (Gdx.input.isKeyPressed(Keys.A)) {
                 playerPositionX -= SPEED * Gdx.graphics.getDeltaTime();
+                character = new Texture("images/character1.Left.png");
             }
 
             if(playerPositionX < 0){

@@ -6,12 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 
 public class ZombieBuff extends Enemy{
-    /* 
-    private static int SPEED = 20;
-    private int LIFE = 150;
-    private int DANO = 10;
-    */
-
+    
     public ZombieBuff(Texture texture, float x, float y, float width, float height){
         super(texture, x, y, width, height);
         LIFE = 150;

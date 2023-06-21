@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -43,58 +45,43 @@ public class CollisionManager {
         boolean isOverlapping = character.getRectangle().overlaps(obstacle.getRectangle());
         if(isOverlapping){
             Vector2 previousPosition = character.getPreviousPosition();
-            character.setPlayerPositionX(previousPosition.x);
-            character.setPlayerPositionY(previousPosition.y);
+            character.setPlayerPositionX(previousPosition.x - (character.getPlayerPositionX() - previousPosition.x));
+            character.setPlayerPositionY(previousPosition.y - (character.getPlayerPositionY() - previousPosition.y));
 
         }
     }
 
-    public void checkCollision(ZombieNormal enemy, Obstacle obstacle) {
+    public void checkCollision(Enemy enemy, Obstacle obstacle) {
         boolean isOverlapping = enemy.getRectangle().overlaps(obstacle.getRectangle());
         if(isOverlapping){
             Vector2 previousPosition = enemy.getPreviousPosition();
-            enemy.setX(previousPosition.x);
-            enemy.setY(previousPosition.y);
+            enemy.setX(previousPosition.x - (enemy.getX() - previousPosition.x));
+            enemy.setY(previousPosition.y - (enemy.getX() - previousPosition.x));
 
         }
     }
 
-    public void checkCollision(ZombieFast enemy, Obstacle obstacle) {
-        boolean isOverlapping = enemy.getRectangle().overlaps(obstacle.getRectangle());
+
+
+    // Collision Between X and cube
+    //---------------------------------------------------------------------------------
+    public void checkCollision(Character character, Cube cube){
+        boolean isOverlapping = character.getRectangle().overlaps(cube.getRectangle());
         if(isOverlapping){
-            Vector2 previousPosition = enemy.getPreviousPosition();
-            enemy.setX(previousPosition.x);
-            enemy.setY(previousPosition.y);
+            Vector2 previousPosition = character.getPreviousPosition();
+            character.setPlayerPositionX(previousPosition.x - (character.getPlayerPositionX() - previousPosition.x));
+            character.setPlayerPositionY(previousPosition.y - (character.getPlayerPositionY() - previousPosition.y));
 
         }
     }
 
-    public void checkCollision(ZombieBuff enemy, Obstacle obstacle) {
-        boolean isOverlapping = enemy.getRectangle().overlaps(obstacle.getRectangle());
+    public void checkCollision(Enemy character, Cube cube){
+        boolean isOverlapping = character.getRectangle().overlaps(cube.getRectangle());
         if(isOverlapping){
-            Vector2 previousPosition = enemy.getPreviousPosition();
-            enemy.setX(previousPosition.x);
-            enemy.setY(previousPosition.y);
+            Vector2 previousPosition = character.getPreviousPosition();
+            character.setX(previousPosition.x - (character.getX() - previousPosition.x));
+            character.setY(previousPosition.y - (character.getY() - previousPosition.y));
 
-        }
-    }
-
-    
-    public void checkCollision(ZombieNormal obj1, Bullet obj2){
-        if(obj1.getLIFE() > 0){
-            boolean isOverlapping = obj1.getRectangle().overlaps(obj2.getRectangle());
-
-            if(isOverlapping){
-            obj1.setLIFE(obj1.getLIFE() - obj2.getDANO());
-            }
-        }
-    }
-
-    public void checkCollision(Character obj1, Cube obj2){
-        boolean isOverlapping = obj1.getRectangle().overlaps(obj2.getRectangle());
-
-        if(isOverlapping){
-            //Will make the character stop
         }
     }
 

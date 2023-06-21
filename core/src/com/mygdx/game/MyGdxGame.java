@@ -46,23 +46,23 @@ public class MyGdxGame extends ApplicationAdapter {
         backGroundMusic.setLooping(true);
         //backGroundMusic.play();
 
-        //creating the character
-        //---------------------------------------------------------------------------------
-        characterTexture = new Texture("images/character1.Right.png");
-        character = new Character(characterTexture, 0, 0);
-        healthBar = new HealthBar();
-        armTexture = new Texture("images/gun.png");
-        arm = new Arm(characterTexture, 0, 0, armTexture, 0, 0);
-
         //creating the backGround
         //---------------------------------------------------------------------------------
         backGroundTexture = new Texture("images/Fundo_Fase1.png");
         backGround = new BackGround(backGroundTexture);
 
+        //creating the character
+        //---------------------------------------------------------------------------------
+        characterTexture = new Texture("images/character1.Right.png");
+        character = new Character(characterTexture, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        healthBar = new HealthBar();
+        armTexture = new Texture("images/gun.png");
+        arm = new Arm(characterTexture, 0, 0, armTexture, 0, 0);
+
         //creating the cube
         //---------------------------------------------------------------------------------
-        cubeTexture = new Texture("images/Cube.png"); //Still not working!!!!
-        cube = new Cube(cubeTexture, 150, 150, 50, 50);
+        cubeTexture = new Texture("images/Cube.png");
+        cube = new Cube(cubeTexture, 550, 570, 50, 50);
         
         //creating Enemys
         //---------------------------------------------------------------------------------
@@ -173,6 +173,9 @@ public class MyGdxGame extends ApplicationAdapter {
         collisionManager.checkCollision(enemyBuff, p4);
         collisionManager.checkCollision(enemyBuff, garbage);
         collisionManager.checkCollision(enemyBuff, barrier);
+        collisionManager.checkCollision(enemyNormal, cube);
+        collisionManager.checkCollision(enemyFast, cube);
+        collisionManager.checkCollision(enemyBuff, cube);
     }
 
     @Override

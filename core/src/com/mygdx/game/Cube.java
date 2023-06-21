@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -14,7 +16,7 @@ public class Cube {
     private Rectangle bounds;
     private Rectangle rectangle;
     private ShapeRenderer shapeRenderer;
-    
+    private SpriteBatch batch;
     private Texture texture;
     private float x;
     private float y;
@@ -27,15 +29,14 @@ public class Cube {
     public Cube(Texture texture, float x, float y, float width, float height){
         this.texture = texture;
         bounds = new Rectangle(x, y, width, height);
-        shapeRenderer = new ShapeRenderer();
-
-        rectangle = new Rectangle(x, y, width, height);
+        batch = new SpriteBatch();
+        rectangle = new Rectangle(x, y, width - 30, height - 30);
     }
 
     public void render(){
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);    //drawing a rectangle on the coordinates and dimentions
-        shapeRenderer.end();
+        batch.begin();
+        batch.draw(texture, bounds.x - 15, bounds.y - 15, bounds.width, bounds.height);
+        batch.end();
 
     }
     
