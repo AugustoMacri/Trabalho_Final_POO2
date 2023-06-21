@@ -7,11 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ZombieBuff extends Enemy{
     
-    public ZombieBuff(Texture texture, float x, float y, float width, float height){
-        super(texture, x, y, width, height);
-        LIFE = 150;
-        SPEED = 20;
-        DANO = 10;
+    public ZombieBuff(Texture texture, float x, float y, float width, float height, int SPEED, int LIFE, int DANO){
+        super(texture, x, y, width, height, 10, 150, 10);
     }
 
     @Override

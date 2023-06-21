@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
 import java.lang.Math;
+import java.util.List;
 
 public abstract class Enemy {
     protected Texture texture;
@@ -21,13 +22,16 @@ public abstract class Enemy {
     protected int LIFE;
     protected int DANO;
 
-    public Enemy(Texture texture, float x, float y, float width, float height){
+    public Enemy(Texture texture, float x, float y, float width, float height, int SPEED, int LIFE, int DANO){
         batch = new SpriteBatch();
         this.texture = texture;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.SPEED = SPEED;
+        this.LIFE = LIFE;
+        this.DANO = DANO;
 
         rectangle = new Rectangle(x, y, 25, 50);
     }
@@ -40,6 +44,7 @@ public abstract class Enemy {
         batch.end();
 
     }
+    
 
     public SpriteBatch getBatch() {
         return batch;

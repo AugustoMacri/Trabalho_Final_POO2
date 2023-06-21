@@ -9,7 +9,7 @@ public class CollisionManager {
 
     // Collision Between Character and Enemys
     //--------------------------------------------------------------------------------- 
-    public void checkCollision(Character obj1, ZombieNormal obj2){
+    public void checkCollision(Character obj1, Enemy obj2){
         if(obj1.getLIFE() > 0){
             boolean isOverlapping = obj1.getRectangle().overlaps(obj2.getRectangle());
 
@@ -19,25 +19,6 @@ public class CollisionManager {
         }
     }
     
-    public void checkCollision(Character obj1, ZombieFast obj2){
-        if(obj1.getLIFE() > 0){
-            boolean isOverlapping = obj1.getRectangle().overlaps(obj2.getRectangle());
-
-            if(isOverlapping){
-            obj1.setLIFE(obj1.getLIFE() - obj2.getDANO());
-            }
-        }
-    }
-
-    public void checkCollision(Character obj1, ZombieBuff obj2){
-        if(obj1.getLIFE() > 0){
-            boolean isOverlapping = obj1.getRectangle().overlaps(obj2.getRectangle());
-
-            if(isOverlapping){
-            obj1.setLIFE(obj1.getLIFE() - obj2.getDANO());
-            }
-        }
-    }
 
     // Collision Between X and Obstacles
     //---------------------------------------------------------------------------------
