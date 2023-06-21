@@ -21,16 +21,28 @@ public class Character {
     private int SPEED = 100; //Setting the speed of the main character
     private Rectangle rectangle;
     private ShapeRenderer shapeRenderer;
+<<<<<<< Updated upstream
     
+=======
+    private Vector2 previousPosition;
+    private int SPEED = 100; 
+    private int LIFE = 6000;
+    private static int score;
+>>>>>>> Stashed changes
 
     public Character(Texture texture, float playerPositionX, float playerPositionY){
         batch = new SpriteBatch();
         this.character = texture;
         this.playerPositionX = playerPositionX;
         this.playerPositionY = playerPositionY;
+<<<<<<< Updated upstream
 
         rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 64, 64);
         shapeRenderer = new ShapeRenderer();
+=======
+        score = 0;
+        rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 25, 60);
+>>>>>>> Stashed changes
     }
 
     public void update(){
