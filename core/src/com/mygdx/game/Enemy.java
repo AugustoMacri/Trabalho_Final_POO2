@@ -22,7 +22,6 @@ public abstract class Enemy {
     protected int LIFE;
     protected int DANO;
     protected int DAMAGEBULLET;
-    protected ShapeRenderer shapeRenderer;
 
     public Enemy(Texture texture, float x, float y, float width, float height, int SPEED, int LIFE, int DANO, int DAMAGEBULLET){
         batch = new SpriteBatch();
@@ -35,7 +34,6 @@ public abstract class Enemy {
         this.LIFE = LIFE;
         this.DANO = DANO;
         this.DAMAGEBULLET = DAMAGEBULLET;
-        shapeRenderer = new ShapeRenderer();
 
         rectangle = new Rectangle(x, y, 25, 50);
     }
@@ -47,10 +45,6 @@ public abstract class Enemy {
             batch.begin();
             batch.draw(texture, x - 20, y, 64, 64);
             batch.end();
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.RED);
-            shapeRenderer.rect(x, y, width, height);
-            shapeRenderer.end();
         }
     }
 

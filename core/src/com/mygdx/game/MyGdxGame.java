@@ -33,7 +33,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     private List<Enemy> enemies; // Lista de inimigos gerados
     private float enemySpawnTimer; // Temporizador para controlar a frequência de geração
-    private float enemySpawnInterval = 2.0f;
+    private float enemySpawnInterval = 3f;
 
 
 
@@ -173,10 +173,6 @@ public class MyGdxGame extends ApplicationAdapter {
             while (enemyIterator.hasNext()) {
                 Enemy enemy = enemyIterator.next();
                 collisionManager.checkCollision(enemy, bullet);
-//                if (bullet.getLIFE() <= 0) {
-//                    bullet.setActive(false);
-//                    // A bala não está mais ativa, faça o que for necessário aqui
-//                }
             }
         }
 

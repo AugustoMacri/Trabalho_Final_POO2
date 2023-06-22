@@ -35,14 +35,15 @@ public class Arm extends Character{
 
     public void shoot() {
         if (arm) {
+            Bullet bullet;
             for (int i = 0; i < this.getBullets().size(); i++) {
-                Bullet bullet = this.getBullets().get(i);
+                bullet = this.getBullets().get(i);
                 bullet.render();
                 bullet.moveBullet();
 
             }
                     if (Gdx.input.isKeyPressed(Keys.SPACE) && shootCooldown <= 0f) {
-                        Bullet bullet = new Bullet(this, bulletTexture);
+                        bullet = new Bullet(this, bulletTexture);
                         bullets.add(bullet.clone());
                         shootCooldown = 0.25f;
                     }

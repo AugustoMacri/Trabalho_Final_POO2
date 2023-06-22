@@ -73,12 +73,25 @@ public class CollisionManager {
         if(enemy.getLIFE() > 0){
             if(enemy.x + enemy.width > bullet.getxBullet() && enemy.getX() < bullet.getxBullet() + bullet.getRectangle().getWidth()
                     && enemy.y + enemy.height > bullet.getyBullet() && enemy.y < bullet.getyBullet() + bullet.getRectangle().getHeight()) {
-                enemy.setLIFE(enemy.getLIFE() - bullet.getDANO());
-                System.out.println("VIDA INIMIGO " + enemy.getLIFE());
-                bullet.setLIFE(bullet.getLIFE() - enemy.getDAMAGEBULLET());
-                System.out.println("VIDA BALA " + bullet.getLIFE());
+                //SE O INIMIGO NÃO TIVER DANOBALA SUFICIENTE PARA "ACABAR" COM UMA BALA
+                if(enemy.getDAMAGEBULLET() >= bullet.getLIFE()){
+                    bullet.setLIFE(0);
+                }
+                if(bullet.getDANO() >= enemy.getLIFE()) {
+                    enemy.setLIFE(0);
+                }else{
+                    bullet.setLIFE(bullet.getLIFE() - enemy.getDAMAGEBULLET());
+                    enemy.setLIFE(enemy.getLIFE() - bullet.getDANO());
+                }
             }
         }
     }
-
 }
+//    public void checkCollision(Enemy enemy, Bullet bullet) {
+//        if (enemy.getLIFE() > 0 && enemy.getRectangle().overlaps(bullet.getRectangle())) {
+//            enemy.setLIFE(enemy.getLIFE() - bullet.getDANO());
+//            System.out.println("VIDA INIMIGO: " + enemy.getLIFE());
+//            bullet.setLIFE(bullet.getLIFE() - enemy.getDAMAGEBULLET());
+//            System.out.println("VIDA BALA: " + bullet.getLIFE());
+//        }
+//    }

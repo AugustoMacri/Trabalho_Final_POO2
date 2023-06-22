@@ -173,4 +173,11 @@ public class Character {
     public void setX(float x) {
     }
 
+    public int getSCORE() {
+        return SCORE;
+    }
+
+    public void setSCORE(int SCORE) {
+        this.SCORE = SCORE;
+    }
 }

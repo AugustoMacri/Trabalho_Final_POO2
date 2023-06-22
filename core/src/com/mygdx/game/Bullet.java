@@ -52,9 +52,7 @@ public class Bullet implements Cloneable{
         }
     }
 
-//    public boolean ifDied(){
-//
-//    }
+
 
     public void moveBullet() {
         if(LIFE > 0 && xBullet < Gdx.graphics.getWidth()) {
@@ -75,6 +73,8 @@ public class Bullet implements Cloneable{
                 xBullet = arm2.getPositionArmX() + 16;
                 yBullet = arm2.getPositionArmY() + 16;
             }
+        }else{
+            arm2.getBullets().remove(0);
         }
 
     }
