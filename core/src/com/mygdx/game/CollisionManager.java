@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import jdk.internal.icu.lang.UCharacter;
+
 
 public class CollisionManager {
 
@@ -56,6 +58,7 @@ public class CollisionManager {
         }
     }
 
+
     public void checkCollision(Enemy character, Cube cube){
         boolean isOverlapping = character.getRectangle().overlaps(cube.getRectangle());
         if(isOverlapping){
@@ -63,6 +66,18 @@ public class CollisionManager {
             character.setX(previousPosition.x - (character.getX() - previousPosition.x));
             character.setY(previousPosition.y - (character.getY() - previousPosition.y));
 
+        }
+    }
+
+    public void checkCollision(Enemy enemy, Bullet bullet){
+        if(enemy.getLIFE() > 0){
+            if(enemy.x + enemy.width > bullet.getxBullet() && enemy.getX() < bullet.getxBullet() + bullet.getRectangle().getWidth()
+                    && enemy.y + enemy.height > bullet.getyBullet() && enemy.y < bullet.getyBullet() + bullet.getRectangle().getHeight()) {
+                enemy.setLIFE(enemy.getLIFE() - bullet.getDANO());
+                System.out.println("VIDA INIMIGO " + enemy.getLIFE());
+                bullet.setLIFE(bullet.getLIFE() - enemy.getDAMAGEBULLET());
+                System.out.println("VIDA BALA " + bullet.getLIFE());
+            }
         }
     }
 

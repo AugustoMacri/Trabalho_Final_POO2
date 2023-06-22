@@ -21,8 +21,10 @@ public abstract class Enemy {
     protected int SPEED;
     protected int LIFE;
     protected int DANO;
+    protected int DAMAGEBULLET;
+    protected ShapeRenderer shapeRenderer;
 
-    public Enemy(Texture texture, float x, float y, float width, float height, int SPEED, int LIFE, int DANO){
+    public Enemy(Texture texture, float x, float y, float width, float height, int SPEED, int LIFE, int DANO, int DAMAGEBULLET){
         batch = new SpriteBatch();
         this.texture = texture;
         this.x = x;
@@ -32,6 +34,8 @@ public abstract class Enemy {
         this.SPEED = SPEED;
         this.LIFE = LIFE;
         this.DANO = DANO;
+        this.DAMAGEBULLET = DAMAGEBULLET;
+        shapeRenderer = new ShapeRenderer();
 
         rectangle = new Rectangle(x, y, 25, 50);
     }
@@ -39,12 +43,28 @@ public abstract class Enemy {
     public abstract void update(Character character);
 
     public void render(){
-        batch.begin();
-        batch.draw(texture, x - 20, y, 64, 64);
-        batch.end();
-
+        if(LIFE > 0) {
+            batch.begin();
+            batch.draw(texture, x - 20, y, 64, 64);
+            batch.end();
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.rect(x, y, width, height);
+            shapeRenderer.end();
+        }
     }
-    
+
+//    public boolean ifDied(){
+//
+//    }
+
+    public int getDAMAGEBULLET() {
+        return DAMAGEBULLET;
+    }
+
+    public void setDAMAGEBULLET(int DAMAGEBULLET) {
+        this.DAMAGEBULLET = DAMAGEBULLET;
+    }
 
     public SpriteBatch getBatch() {
         return batch;

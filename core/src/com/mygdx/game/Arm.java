@@ -18,7 +18,7 @@ public class Arm extends Character{
     private SpriteBatch batch;
     private boolean arm = true;
     private CollisionManager collisionManager;
-    private static ArrayList <Bullet> bullets;
+    private ArrayList <Bullet> bullets;
     private float shootCooldown = 0f;
 
 
@@ -33,25 +33,24 @@ public class Arm extends Character{
         bulletTexture = new Texture("images/bullet.png");
     }
 
-    public void shoot(){
-        if(arm == true){
+    public void shoot() {
+        if (arm) {
             for (int i = 0; i < this.getBullets().size(); i++) {
-                    Bullet bullet = this.getBullets().get(i);
-                    bullet.render();
-                    bullet.moveBullet();
-            }
+                Bullet bullet = this.getBullets().get(i);
+                bullet.render();
+                bullet.moveBullet();
 
-            if(Gdx.input.isKeyPressed(Keys.SPACE) && shootCooldown <= 0f){
-                Bullet bullet = new Bullet(this, bulletTexture);
-                bullets.add(bullet.clone());
-
-                shootCooldown = 0.25f;
             }
-            if(shootCooldown > 0f){
-                shootCooldown -= Gdx.graphics.getDeltaTime();
+                    if (Gdx.input.isKeyPressed(Keys.SPACE) && shootCooldown <= 0f) {
+                        Bullet bullet = new Bullet(this, bulletTexture);
+                        bullets.add(bullet.clone());
+                        shootCooldown = 0.25f;
+                    }
+                    if (shootCooldown > 0f) {
+                        shootCooldown -= Gdx.graphics.getDeltaTime();
+                    }
+                }
             }
-        }
-    }
 
 
     public void update(Character character){
@@ -65,7 +64,7 @@ public class Arm extends Character{
     }
 
     public void render(){
-        if(arm == true){
+        if(arm){
             
             if (Gdx.input.isKeyPressed(Keys.LEFT)) {
                 textureArm = new Texture("images/gun_left.png");
@@ -115,7 +114,7 @@ public class Arm extends Character{
         this.batch = batch;
     }
 
-    public static ArrayList<Bullet> getBullets() {
+    public ArrayList<Bullet> getBullets() {
         return bullets;
     }
 

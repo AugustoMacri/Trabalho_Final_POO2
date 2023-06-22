@@ -22,7 +22,7 @@ public class Character {
     private Vector2 previousPosition;
     private int SPEED = 100; 
     private int LIFE = 6000;    
-
+    private int SCORE = 0;
     public Character(Texture texture, float playerPositionX, float playerPositionY){
         batch = new SpriteBatch();
         this.character = texture;
@@ -168,6 +168,9 @@ public class Character {
 
     public void setPreviousPosition(Vector2 previousPosition) {
         this.previousPosition = previousPosition;
-    }    
+    }
+
+    public void setX(float x) {
+    }
 
 }

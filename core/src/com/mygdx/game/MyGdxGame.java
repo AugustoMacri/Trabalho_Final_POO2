@@ -64,7 +64,7 @@ public class MyGdxGame extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         cubeTexture = new Texture("images/Cube.png");
         cube = new Cube(cubeTexture, 550, 570, 50, 50);
-        
+
         //creating Enemys
         //---------------------------------------------------------------------------------
         enemyTextureNormal = new Texture("images/zombie.png");
@@ -94,8 +94,8 @@ public class MyGdxGame extends ApplicationAdapter {
     }
 
     @Override
-    public void render () { 
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set the screen back to black
+    public void render () {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set the screen back to black
 
         //Render
         //---------------------------------------------------------------------------------
@@ -108,7 +108,7 @@ public class MyGdxGame extends ApplicationAdapter {
         spriteBatch.end();
         cube.render();
         cube.handleInput();
-        
+
 
         //Updates
         //---------------------------------------------------------------------------------
@@ -131,7 +131,8 @@ public class MyGdxGame extends ApplicationAdapter {
         collisionManager.checkCollision(character, p4);
         collisionManager.checkCollision(character, garbage);
         collisionManager.checkCollision(character, barrier);
-        
+
+
 
         //Spawn
         //---------------------------------------------------------------------------------
@@ -141,7 +142,9 @@ public class MyGdxGame extends ApplicationAdapter {
             enemySpawnTimer = 0.0f;
         }
 
-        for(Enemy enemy : enemies){
+        Iterator<Enemy> enemyIterator = enemies.iterator();
+        while (enemyIterator.hasNext()) {
+            Enemy enemy = enemyIterator.next();
             enemy.render();
             enemy.update(character);
             collisionManager.checkCollision(character, enemy);
@@ -158,8 +161,25 @@ public class MyGdxGame extends ApplicationAdapter {
             collisionManager.checkCollision(enemy, p4);
             collisionManager.checkCollision(enemy, garbage);
             collisionManager.checkCollision(enemy, barrier);
+
+            if (enemy.getLIFE() <= 0) {
+                enemyIterator.remove();
+                // O inimigo foi derrotado, faça o que for necessário aqui
+            }
         }
-        
+
+        for(Bullet bullet : arm.getBullets()){
+            enemyIterator = enemies.iterator();
+            while (enemyIterator.hasNext()) {
+                Enemy enemy = enemyIterator.next();
+                collisionManager.checkCollision(enemy, bullet);
+//                if (bullet.getLIFE() <= 0) {
+//                    bullet.setActive(false);
+//                    // A bala não está mais ativa, faça o que for necessário aqui
+//                }
+            }
+        }
+
     }
 
     private void spawnEnemy() {
@@ -184,11 +204,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // Create enemy instance based on enemy type
         if (enemyType == 0) {
-            enemy = new ZombieNormal(enemyTexture, x, y, 64, 64, 20, 100, 5);
+            enemy = new ZombieNormal(enemyTexture, x, y, 64, 64, 20, 100, 5, 70);
         } else if (enemyType == 1) {
-            enemy = new ZombieFast(enemyTexture, x, y, 64, 64, 50, 65, 1);
+            enemy = new ZombieFast(enemyTexture, x, y, 64, 64, 50, 65, 1, 40);
         } else {
-            enemy = new ZombieBuff(enemyTexture, x, y, 64, 64, 20, 150, 10);
+            enemy = new ZombieBuff(enemyTexture, x, y, 64, 64, 20, 150, 10, 100);
         }
 
         enemies.add(enemy);
