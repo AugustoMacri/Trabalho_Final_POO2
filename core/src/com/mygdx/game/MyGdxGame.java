@@ -29,6 +29,7 @@ public class MyGdxGame extends ApplicationAdapter {
     HealthBar healthBar;
     Cube cube;
     CollisionManager collisionManager = new CollisionManager();
+    SpawnManager spawnManager = new SpawnManager();
     SpriteBatch spriteBatch;
 
     private List<Enemy> enemies; // Lista de inimigos gerados
@@ -138,7 +139,8 @@ public class MyGdxGame extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         enemySpawnTimer += Gdx.graphics.getDeltaTime();
         if(enemySpawnTimer >= enemySpawnInterval){
-            spawnEnemy();
+            Enemy enemy = spawnManager.spawnEnemy();
+            enemies.add(enemy);
             enemySpawnTimer = 0.0f;
         }
 
@@ -178,37 +180,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     }
 
-    private void spawnEnemy() {
-        Random random = new Random();
-        int enemyType = random.nextInt(3); // Randomly select enemy type (0, 1, or 2)
-
-        Texture enemyTexture;
-
-        // Determine the enemy texture based on enemy type
-        if (enemyType == 0) {
-            enemyTexture = enemyTextureNormal;
-        } else if (enemyType == 1) {
-            enemyTexture = enemyTextureFast;
-        } else {
-            enemyTexture = enemyTextureBuff;
-        }
-
-        float x = random.nextInt(Gdx.graphics.getWidth());
-        float y = random.nextInt(Gdx.graphics.getHeight());
-
-        Enemy enemy;
-
-        // Create enemy instance based on enemy type
-        if (enemyType == 0) {
-            enemy = new ZombieNormal(enemyTexture, x, y, 64, 64, 20, 100, 5, 70);
-        } else if (enemyType == 1) {
-            enemy = new ZombieFast(enemyTexture, x, y, 64, 64, 50, 65, 1, 40);
-        } else {
-            enemy = new ZombieBuff(enemyTexture, x, y, 64, 64, 20, 150, 10, 100);
-        }
-
-        enemies.add(enemy);
-    }
+    
 
     @Override
     public void dispose () {
