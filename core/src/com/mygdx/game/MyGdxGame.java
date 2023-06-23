@@ -29,18 +29,19 @@ public class MyGdxGame extends ApplicationAdapter {
     HealthBar healthBar;
     Cube cube;
     CollisionManager collisionManager = new CollisionManager();
-    SpawnManager spawnManager = new SpawnManager();
+    SpawnManager spawnManager;
     SpriteBatch spriteBatch;
 
     private List<Enemy> enemies; // Lista de inimigos gerados
     private float enemySpawnTimer; // Temporizador para controlar a frequência de geração
-    private float enemySpawnInterval = 3f;
+    private float enemySpawnInterval = 0.5f;
 
 
 
     @Override
     public void create () {
         spriteBatch = new SpriteBatch();
+        spawnManager = new SpawnManager();
 
         //Background Music
         //---------------------------------------------------------------------------------
@@ -179,8 +180,6 @@ public class MyGdxGame extends ApplicationAdapter {
         }
 
     }
-
-    
 
     @Override
     public void dispose () {
