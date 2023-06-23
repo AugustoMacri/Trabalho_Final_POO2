@@ -13,9 +13,12 @@ import java.util.ArrayList;
 
 public class Bullet implements Cloneable{
     private SpriteBatch batch;
-    private int SPEED = 300; //bullet speed
+    private int SPEED = 1000; //bullet speed
     private int DANO = 65;
     private int LIFE = 100;
+
+    private float directionX; // Direção X da bala
+    private float directionY; // Direção Y da bala
 
     private Arm arm2;
     private static Texture textureBullet;
@@ -55,15 +58,27 @@ public class Bullet implements Cloneable{
 
 
     public void moveBullet() {
-        if(LIFE > 0 && xBullet < Gdx.graphics.getWidth()) {
-
+        if (LIFE > 0 && xBullet < Gdx.graphics.getWidth()) {
             if (!attack) {
                 attack = true;
                 yBullet = arm2.getPositionArmY() + 16;
+
+                // Definir a direção inicial da bala com base na posição atual do mouse
+                float mouseX = Gdx.input.getX();
+                float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+                directionX = mouseX - xBullet;
+                directionY = mouseY - yBullet;
+                float length = (float) Math.sqrt(directionX * directionX + directionY * directionY);
+                directionX /= length;
+                directionY /= length;
             }
+
             if (attack) {
                 if (xBullet < Gdx.graphics.getWidth()) {
-                    xBullet += 20;
+                    // Atualizar a posição da bala com base na direção e velocidade
+                    xBullet += directionX * SPEED * Gdx.graphics.getDeltaTime();
+                    yBullet += directionY * SPEED * Gdx.graphics.getDeltaTime();
                 } else {
                     xBullet = arm2.getPositionArmX() + 16;
                     attack = false;
@@ -73,10 +88,9 @@ public class Bullet implements Cloneable{
                 xBullet = arm2.getPositionArmX() + 16;
                 yBullet = arm2.getPositionArmY() + 16;
             }
-        }else{
+        } else {
             arm2.getBullets().remove(0);
         }
-
     }
 
 

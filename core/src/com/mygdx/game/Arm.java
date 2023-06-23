@@ -33,6 +33,7 @@ public class Arm extends Character{
         bulletTexture = new Texture("images/bullet.png");
     }
 
+    
     public void shoot() {
         if (arm) {
             Bullet bullet;
