@@ -33,7 +33,8 @@ public class MyGdxGame extends ApplicationAdapter {
     private SpawnManager spawnManager;
     private SpriteBatch spriteBatch;
     private BitmapFont font;
-    private List<Enemy> enemies; // Lista de inimigos gerados
+
+    private ArrayList<Enemy> enemies;
     private float enemySpawnTimer; // Temporizador para controlar a frequência de geração
     private float enemySpawnInterval = 0.5f;
 

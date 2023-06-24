@@ -35,7 +35,7 @@ public class SpawnManager {
                     enemy = zombieFastFac.createZombie(enemyTexture, x, y);
                     break;
             case 2: enemyTexture = enemyTextureBuff;
-                    enemy = zombieFastFac.createZombie(enemyTexture, x, y);
+                    enemy = zombieBuffFac.createZombie(enemyTexture, x, y);
                     break;
         }
 
