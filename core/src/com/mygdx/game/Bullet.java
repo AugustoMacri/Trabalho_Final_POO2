@@ -35,7 +35,7 @@ public class Bullet implements Cloneable{
         this.yBullet = arm.getPositionArmY()+16;
         textureBullet = texture;
         batch = new SpriteBatch();
-        rectangle = new Rectangle(xBullet, yBullet, 32, 32);
+        rectangle = new Rectangle(xBullet + 8, yBullet + 3, 5, 5);
         shapeRenderer = new ShapeRenderer();
 
     }
@@ -99,10 +99,7 @@ public class Bullet implements Cloneable{
             batch.begin();
             batch.draw(textureBullet, xBullet, yBullet);
             batch.end();
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.RED);
-            shapeRenderer.rect(xBullet, yBullet, getRectangle().width, getRectangle().height);
-            shapeRenderer.end();
+            
         }
 
     }

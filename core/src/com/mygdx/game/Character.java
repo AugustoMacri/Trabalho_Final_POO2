@@ -4,16 +4,18 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.Color;
 
-public class Character {
+public class Character implements ScoreObservable{
     private Texture character, bulletTexture;
     private SpriteBatch batch;
     private float playerPositionX, playerPositionY;
@@ -23,14 +25,17 @@ public class Character {
     private int SPEED = 100; 
     private int LIFE = 6000;    
     private int SCORE = 0;
+    ArrayList <ScoreObserver> observers;
+
     public Character(Texture texture, float playerPositionX, float playerPositionY){
         batch = new SpriteBatch();
         this.character = texture;
         this.playerPositionX = playerPositionX;
         this.playerPositionY = playerPositionY;
-
         rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 25, 60);
+        observers = new ArrayList<>();
     }
+
 
 
     public void update(){
@@ -81,6 +86,23 @@ public class Character {
         batch.begin();
         batch.draw(character, playerPositionX - 20, playerPositionY, 64, 64);
         batch.end();
+        }
+    }
+
+    @Override
+    public void addObserver(ScoreObserver enemy){
+        observers.add(enemy);
+    }
+
+    @Override
+    public void removeObserver (ScoreObserver enemy){
+        observers.remove(enemy);
+    }
+
+    @Override
+    public void notifyObservers(){
+        for(ScoreObserver observer : observers){
+            observer.updateScore(SCORE);
         }
     }
 

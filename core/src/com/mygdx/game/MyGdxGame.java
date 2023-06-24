@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.List;
 import java.util.Iterator;
@@ -20,18 +21,19 @@ import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
 
+    private BackGround backGround;
+    private Texture backGroundTexture, characterTexture, armTexture, cubeTexture, enemyTextureNormal, enemyTextureFast, enemyTextureBuff;
+    private Obstacle mall, carV, carB, carO, carO2, carO3, p1, p2, p3, p4, garbage, barrier;
+    private Character character;
+    private HealthBar healthBar;
+    private Arm arm;
     private Music backGroundMusic;
-    Texture backGroundTexture, characterTexture, armTexture, cubeTexture, enemyTextureNormal, enemyTextureFast, enemyTextureBuff, enemyTexture;
-    BackGround backGround;
-    Obstacle mall, carV, carB, carO, carO2, carO3, p1, p2, p3, p4, garbage, barrier;
-    Character character;
-    Arm arm;
-    HealthBar healthBar;
-    Cube cube;
-    CollisionManager collisionManager = new CollisionManager();
-    SpawnManager spawnManager;
-    SpriteBatch spriteBatch;
-
+    private Cube cube;
+    private CollisionManager collisionManager = new CollisionManager();
+    private SpawnManager spawnManager;
+    private SpriteBatch spriteBatch;
+    private BitmapFont font;
+    
     private List<Enemy> enemies; // Lista de inimigos gerados
     private float enemySpawnTimer; // Temporizador para controlar a frequência de geração
     private float enemySpawnInterval = 0.5f;
@@ -42,6 +44,12 @@ public class MyGdxGame extends ApplicationAdapter {
     public void create () {
         spriteBatch = new SpriteBatch();
         spawnManager = new SpawnManager();
+
+        //Score Board
+        //---------------------------------------------------------------------------------
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+        font.getData().setScale(1.5f);
 
         //Background Music
         //---------------------------------------------------------------------------------
@@ -99,7 +107,7 @@ public class MyGdxGame extends ApplicationAdapter {
     public void render () {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set the screen back to black
 
-        //Render
+        //Render Score
         //---------------------------------------------------------------------------------
         spriteBatch.begin();
         backGround.render();
@@ -107,9 +115,11 @@ public class MyGdxGame extends ApplicationAdapter {
         arm.shoot();
         healthBar.render(character);
         arm.render();
-        spriteBatch.end();
+        font.draw(spriteBatch, "Score: " + character.getSCORE(), 10, Gdx.graphics.getHeight() - 10);
         cube.render();
         cube.handleInput();
+        spriteBatch.end();
+        
 
 
         //Updates
@@ -134,14 +144,13 @@ public class MyGdxGame extends ApplicationAdapter {
         collisionManager.checkCollision(character, garbage);
         collisionManager.checkCollision(character, barrier);
 
-
-
         //Spawn
         //---------------------------------------------------------------------------------
         enemySpawnTimer += Gdx.graphics.getDeltaTime();
         if(enemySpawnTimer >= enemySpawnInterval){
             Enemy enemy = spawnManager.spawnEnemy();
             enemies.add(enemy);
+            character.addObserver(enemy);
             enemySpawnTimer = 0.0f;
         }
 
@@ -167,6 +176,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
             if (enemy.getLIFE() <= 0) {
                 enemyIterator.remove();
+                character.removeObserver(enemy);
+                character.setSCORE(character.getSCORE() + 10);
+                character.notifyObservers();
                 // O inimigo foi derrotado, faça o que for necessário aqui
             }
         }

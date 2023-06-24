@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,6 +21,7 @@ public class Arm extends Character{
     private CollisionManager collisionManager;
     private ArrayList <Bullet> bullets;
     private float shootCooldown = 0f;
+    private Sound shootSound;
 
 
     
@@ -30,7 +32,8 @@ public class Arm extends Character{
         this.positionArmX = positionArmX;
         this.positionArmY = positionArmY;
         bullets = new ArrayList<>();
-        bulletTexture = new Texture("images/bullet.png");
+        bulletTexture = new Texture("images/bullet1.png");
+        shootSound = Gdx.audio.newSound(Gdx.files.internal("audio/gun_shot.mp3"));
     }
 
     
@@ -45,6 +48,7 @@ public class Arm extends Character{
             }
                     if (Gdx.input.isKeyPressed(Keys.SPACE) && shootCooldown <= 0f) {
                         bullet = new Bullet(this, bulletTexture);
+                        shootSound.play(0.3f);
                         bullets.add(bullet.clone());
                         shootCooldown = 0.25f;
                     }

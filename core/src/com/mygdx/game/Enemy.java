@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Rectangle;
 import java.lang.Math;
 import java.util.List;
 
-public abstract class Enemy {
+public abstract class Enemy implements ScoreObserver{
     protected Texture texture;
     protected float x, y, width, height;
     protected SpriteBatch batch;
@@ -48,9 +48,21 @@ public abstract class Enemy {
         }
     }
 
-//    public boolean ifDied(){
-//
-//    }
+    @Override
+    public void updateScore(int SCORE){
+        if(SCORE == 500){
+            SPEED += 5;
+            LIFE += 10;
+        }else if (SCORE == 250){
+            SPEED += 5;
+            LIFE += 10;
+        }else if (SCORE == 100){
+            SPEED += 5;
+            LIFE += 10;
+        }
+    }
+
+    //TENTAR COLOCAR COM O OU ||
 
     public int getDAMAGEBULLET() {
         return DAMAGEBULLET;
