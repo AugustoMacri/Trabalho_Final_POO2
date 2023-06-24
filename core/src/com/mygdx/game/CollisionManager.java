@@ -87,11 +87,3 @@ public class CollisionManager {
         }
     }
 }
-//    public void checkCollision(Enemy enemy, Bullet bullet) {
-//        if (enemy.getLIFE() > 0 && enemy.getRectangle().overlaps(bullet.getRectangle())) {
-//            enemy.setLIFE(enemy.getLIFE() - bullet.getDANO());
-//            System.out.println("VIDA INIMIGO: " + enemy.getLIFE());
-//            bullet.setLIFE(bullet.getLIFE() - enemy.getDAMAGEBULLET());
-//            System.out.println("VIDA BALA: " + bullet.getLIFE());
-//        }
-//    }

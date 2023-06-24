@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.Color;
 
-public class HealthBar {
+public class HealthBar{
     private float lenght, width, positionX, positionY;
 
     public HealthBar(){

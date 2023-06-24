@@ -36,47 +36,50 @@ public class Character implements ScoreObservable{
         observers = new ArrayList<>();
     }
 
+    public void move(){
+        if(LIFE > 0){
+
+                previousPosition = new Vector2(playerPositionX, playerPositionY);
+                
+                //Character movimentation
+                //------------------------------------------------------------
+                if(Gdx.input.isKeyPressed(Keys.W)) {
+                    playerPositionY += SPEED * Gdx.graphics.getDeltaTime();
+                    character = new Texture("images/Character1.UP.png");
+                } else if (Gdx.input.isKeyPressed(Keys.S)) {
+                    playerPositionY -= SPEED * Gdx.graphics.getDeltaTime();
+                    character = new Texture("images/character1.Down.png");
+                }
+
+                if(Gdx.input.isKeyPressed(Keys.D)) {
+                    playerPositionX += SPEED * Gdx.graphics.getDeltaTime();
+                    character = new Texture("images/character1.Right.png");
+                } else if (Gdx.input.isKeyPressed(Keys.A)) {
+                    playerPositionX -= SPEED * Gdx.graphics.getDeltaTime();
+                    character = new Texture("images/character1.Left.png");
+                }
+
+                if(playerPositionX < 0){
+                    playerPositionX = 0;
+                } else if (playerPositionX > Gdx.graphics.getWidth() - 32){
+                    playerPositionX = Gdx.graphics.getWidth() - 32;
+                }
+                if(playerPositionY < 0) {
+                    playerPositionY = 0;
+                } else if (playerPositionY > Gdx.graphics.getHeight() - 64) {
+                    playerPositionY = Gdx.graphics.getHeight() - 64;
+                }
+                
+                //Collision Rectangle position
+                //------------------------------------------------------------
+                rectangle.setPosition(playerPositionX, playerPositionY);
+
+            }
+    }
 
 
     public void update(){
-        if(LIFE > 0){
-
-            previousPosition = new Vector2(playerPositionX, playerPositionY);
-            
-            //Character movimentation
-            //------------------------------------------------------------
-            if(Gdx.input.isKeyPressed(Keys.W)) {
-                playerPositionY += SPEED * Gdx.graphics.getDeltaTime();
-                character = new Texture("images/Character1.UP.png");
-            } else if (Gdx.input.isKeyPressed(Keys.S)) {
-                playerPositionY -= SPEED * Gdx.graphics.getDeltaTime();
-                character = new Texture("images/character1.Down.png");
-            }
-
-            if(Gdx.input.isKeyPressed(Keys.D)) {
-                playerPositionX += SPEED * Gdx.graphics.getDeltaTime();
-                character = new Texture("images/character1.Right.png");
-            } else if (Gdx.input.isKeyPressed(Keys.A)) {
-                playerPositionX -= SPEED * Gdx.graphics.getDeltaTime();
-                character = new Texture("images/character1.Left.png");
-            }
-
-            if(playerPositionX < 0){
-                playerPositionX = 0;
-            } else if (playerPositionX > Gdx.graphics.getWidth() - 32){
-                playerPositionX = Gdx.graphics.getWidth() - 32;
-            }
-            if(playerPositionY < 0) {
-                playerPositionY = 0;
-            } else if (playerPositionY > Gdx.graphics.getHeight() - 64) {
-                playerPositionY = Gdx.graphics.getHeight() - 64;
-            }
-            
-            //Collision Rectangle position
-            //------------------------------------------------------------
-            rectangle.setPosition(playerPositionX, playerPositionY);
-
-        }
+        move();
     }
 
 
