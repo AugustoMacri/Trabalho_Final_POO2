@@ -46,8 +46,8 @@ public class Arm extends Character{
             }
                     if (Gdx.input.isKeyPressed(Keys.SPACE) && shootCooldown <= 0f) {
                         bullet = new Bullet(this, bulletTexture);
-                        shootSound.play(0.3f);
-                        bullets.add(bullet.clone());
+                        shootSound.play(0.2f);
+                        bullets.add(bullet);
                         shootCooldown = 0.25f;
                     }
                     if (shootCooldown > 0f) {
@@ -67,24 +67,23 @@ public class Arm extends Character{
 
     }
 
-    public void render(){
-        if(arm){
-            
-            if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-                textureArm = new Texture("images/gun_left.png");
-            } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-                textureArm = new Texture("images/gun_right.png");
-            } else if (Gdx.input.isKeyPressed(Keys.UP)) {
-                textureArm = new Texture("images/gun_up.png");
-            } else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-                textureArm = new Texture("images/gun_down.png");
-            }
-                    
-            batch.begin();
-            batch.draw(textureArm, positionArmX + 6, positionArmY + 25, 14, 14);
-            batch.end();
-        }
+    public void render() {
+    if (arm) {
+        // Obter as coordenadas X e Y do mouse
+        float mouseX = Gdx.input.getX();
+        float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+        // Calcular o ângulo entre o braço e o mouse
+        Vector2 armPosition = new Vector2(positionArmX + 12, positionArmY + 12); // Posição central do braço
+        Vector2 mousePosition = new Vector2(mouseX, mouseY);
+        float angle = MathUtils.radiansToDegrees * MathUtils.atan2(mousePosition.y - armPosition.y, mousePosition.x - armPosition.x);
+
+        // Definir a rotação da imagem do braço
+        batch.begin();
+        batch.draw(textureArm, positionArmX, positionArmY + 15, textureArm.getWidth() / 2 - 8, textureArm.getHeight() / 2, textureArm.getWidth(), textureArm.getHeight(), 2, 2, angle, 0, 0, textureArm.getWidth(), textureArm.getHeight(), false, false);
+        batch.end();
     }
+}
 
     public Texture getTextureArm() {
         return textureArm;

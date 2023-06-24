@@ -44,7 +44,7 @@ public class Character implements ScoreObservable{
                 //------------------------------------------------------------
                 if(Gdx.input.isKeyPressed(Keys.W)) {
                     playerPositionY += SPEED * Gdx.graphics.getDeltaTime();
-                    character = new Texture("images/Character1.UP.png");
+                    character = new Texture("images/character1.UP.png");
                 } else if (Gdx.input.isKeyPressed(Keys.S)) {
                     playerPositionY -= SPEED * Gdx.graphics.getDeltaTime();
                     character = new Texture("images/character1.Down.png");

@@ -67,7 +67,7 @@ public class MyGdxGame extends ApplicationAdapter {
         characterTexture = new Texture("images/character1.Right.png");
         character = new Character(characterTexture, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         healthBar = new HealthBar();
-        armTexture = new Texture("images/gun.png");
+        armTexture = new Texture("images/Arm1.png");
         arm = new Arm(characterTexture, 0, 0, armTexture, 0, 0);
 
         //creating the cube
