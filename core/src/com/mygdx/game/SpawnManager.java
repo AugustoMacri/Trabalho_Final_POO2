@@ -10,6 +10,9 @@ public class SpawnManager {
     Texture enemyTextureNormal = new Texture("images/zombie.png");
     Texture enemyTextureFast = new Texture("images/zombie2.png");
     Texture enemyTextureBuff = new Texture("images/zombie3.png");
+    ZombieBuffFac zombieBuffFac = new ZombieBuffFac();
+    ZombieFastFac zombieFastFac = new ZombieFastFac();
+    ZombieNormalFac zombieNormalFac = new ZombieNormalFac();
 
     public SpawnManager() {
 
@@ -20,29 +23,23 @@ public class SpawnManager {
         int enemyType = random.nextInt(3); // Randomly select enemy type (0, 1, or 2)
 
         Texture enemyTexture;
-
-        // Determine the enemy texture based on enemy type
-        if (enemyType == 0) {
-            enemyTexture = enemyTextureNormal;
-        } else if (enemyType == 1) {
-            enemyTexture = enemyTextureFast;
-        } else {
-            enemyTexture = enemyTextureBuff;
-        }
-
         float x = random.nextInt(Gdx.graphics.getWidth());
         float y = random.nextInt(Gdx.graphics.getHeight());
+        Enemy enemy = null;
 
-        Enemy enemy;
-
-        // Create enemy instance based on enemy type
-        if (enemyType == 0) {
-            enemy = new ZombieNormal(enemyTexture, x, y, 64, 64, 20, 100, 5, 70);
-        } else if (enemyType == 1) {
-            enemy = new ZombieFast(enemyTexture, x, y, 64, 64, 50, 65, 1, 40);
-        } else {
-            enemy = new ZombieBuff(enemyTexture, x, y, 64, 64, 20, 150, 10, 100);
+        switch(enemyType) {
+            case 0: enemyTexture = enemyTextureNormal;
+                    enemy = zombieNormalFac.createZombie(enemyTexture, x, y);
+                    break;
+            case 1: enemyTexture = enemyTextureFast;
+                    enemy = zombieFastFac.createZombie(enemyTexture, x, y);
+                    break;
+            case 2: enemyTexture = enemyTextureBuff;
+                    enemy = zombieFastFac.createZombie(enemyTexture, x, y);
+                    break;
         }
+
         return enemy;
+        
     }
 }

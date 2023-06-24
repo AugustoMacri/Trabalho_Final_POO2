@@ -23,8 +23,6 @@ public class Arm extends Character{
     private float shootCooldown = 0f;
     private Sound shootSound;
 
-
-    
     public Arm(Texture texture, float playerPositionX, float playerPositionY, Texture textureArm, float positionArmX, float positionArmY){
         super(texture, playerPositionX, playerPositionY);
         batch = new SpriteBatch();

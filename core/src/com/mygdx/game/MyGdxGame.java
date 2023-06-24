@@ -29,20 +29,19 @@ public class MyGdxGame extends ApplicationAdapter {
     private Arm arm;
     private Music backGroundMusic;
     private Cube cube;
-    private CollisionManager collisionManager = new CollisionManager();
+    private CollisionManager collisionManager;
     private SpawnManager spawnManager;
     private SpriteBatch spriteBatch;
     private BitmapFont font;
-    
     private List<Enemy> enemies; // Lista de inimigos gerados
     private float enemySpawnTimer; // Temporizador para controlar a frequência de geração
     private float enemySpawnInterval = 0.5f;
 
 
-
     @Override
     public void create () {
         spriteBatch = new SpriteBatch();
+        collisionManager = new CollisionManager();
         spawnManager = new SpawnManager();
 
         //Score Board

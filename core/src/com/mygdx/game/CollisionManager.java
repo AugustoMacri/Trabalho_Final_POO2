@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import jdk.internal.icu.lang.UCharacter;
 
-
 public class CollisionManager {
 
     // Collision Between Character and Enemys

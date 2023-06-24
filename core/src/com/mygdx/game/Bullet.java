@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.sun.org.apache.bcel.internal.generic.SWITCH;
-
 import java.util.ArrayList;
 
 public class Bullet implements Cloneable{
