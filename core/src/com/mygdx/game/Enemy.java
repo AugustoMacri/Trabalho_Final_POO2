@@ -22,6 +22,7 @@ public abstract class Enemy implements ScoreObserver{
     protected int LIFE;
     protected int DANO;
     protected int DAMAGEBULLET;
+    protected EnemyStrategy enemyStrategy;
 
     public Enemy(Texture texture, float x, float y, float width, float height, int SPEED, int LIFE, int DANO, int DAMAGEBULLET){
         batch = new SpriteBatch();
@@ -34,6 +35,7 @@ public abstract class Enemy implements ScoreObserver{
         this.LIFE = LIFE;
         this.DANO = DANO;
         this.DAMAGEBULLET = DAMAGEBULLET;
+        enemyStrategy = new NormalStrategy();
 
         rectangle = new Rectangle(x, y, 25, 50);
     }
@@ -64,7 +66,13 @@ public abstract class Enemy implements ScoreObserver{
         }
     }
 
-    
+    public void setStrategy(EnemyStrategy enemyStrategy){
+        this.enemyStrategy = enemyStrategy;
+    }
+
+    public void executeStrategy(EnemyStrategy enemyStrategy){
+        enemyStrategy.execute(this);
+    }
 
     public void render(){
         if(LIFE > 0) {
@@ -76,15 +84,17 @@ public abstract class Enemy implements ScoreObserver{
 
     @Override
     public void updateScore(int SCORE){
-        if(SCORE == 500){
-            SPEED += 5;
-            LIFE += 10;
+        if(SCORE == 1000){
+            setStrategy(new HardcoreStrategy());
+            enemyStrategy.execute(this);
+        }else if (SCORE == 500){
+            setStrategy(new AgressiveStrategy());
+            enemyStrategy.execute(this);
         }else if (SCORE == 250){
-            SPEED += 5;
-            LIFE += 10;
-        }else if (SCORE == 100){
-            SPEED += 5;
-            LIFE += 10;
+            setStrategy(new AngryStrategy());
+            enemyStrategy.execute(this);
+        }else if(SCORE == 0){
+            enemyStrategy.execute(this);
         }
     }
 
@@ -162,6 +172,15 @@ public abstract class Enemy implements ScoreObserver{
         DANO = dANO;
     }
 
+    public EnemyStrategy getEnemyStrategy() {
+        return enemyStrategy;
+    }
+
+    public void setEnemyStrategy(EnemyStrategy enemyStrategy) {
+        this.enemyStrategy = enemyStrategy;
+    }
+
+    
     
     
 }

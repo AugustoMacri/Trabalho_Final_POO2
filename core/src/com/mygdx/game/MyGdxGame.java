@@ -26,6 +26,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private Obstacle mall, carV, carB, carO, carO2, carO3, p1, p2, p3, p4, garbage, barrier;
     private Character character;
     private HealthBar healthBar;
+    private SkillBar skillbar;
     private Arm arm;
     private Music backGroundMusic;
     private Cube cube;
@@ -55,7 +56,8 @@ public class MyGdxGame extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         backGroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/battle.wav"));
         backGroundMusic.setLooping(true);
-        //backGroundMusic.play();
+        backGroundMusic.play();
+        
 
         //creating the backGround
         //---------------------------------------------------------------------------------
@@ -67,6 +69,7 @@ public class MyGdxGame extends ApplicationAdapter {
         characterTexture = new Texture("images/character1.Right.png");
         character = new Character(characterTexture, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         healthBar = new HealthBar();
+        skillbar = new SkillBar();
         armTexture = new Texture("images/Arm1.png");
         arm = new Arm(characterTexture, 0, 0, armTexture, 0, 0);
 
@@ -114,6 +117,7 @@ public class MyGdxGame extends ApplicationAdapter {
         character.render();
         arm.shoot();
         healthBar.render(character);
+        skillbar.render(character);
         arm.render();
         font.draw(spriteBatch, "Score: " + character.getSCORE(), 10, Gdx.graphics.getHeight() - 10);
         cube.render();
@@ -126,7 +130,9 @@ public class MyGdxGame extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         character.update();
         healthBar.update(character);
+        skillbar.update(character);
         arm.update(character);
+        character.skills();
 
         //Collision
         //---------------------------------------------------------------------------------

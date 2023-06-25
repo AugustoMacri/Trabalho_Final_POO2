@@ -11,12 +11,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.Color;
 
-public class HealthBar{
+public class SkillBar{
     private float lenght, width, positionX, positionY;
 
-    public HealthBar(){
+    public SkillBar(){
         this.lenght = 10;
-        this.width = 1;
+        this.width = 5;
     }
 
     public void update(Character character){
@@ -25,20 +25,16 @@ public class HealthBar{
     }
 
     public void render(Character character){
-        width = (lenght * character.getLIFE()) / 600;
-
-        // Draw de health bar 
-        ShapeRenderer shapeRenderer = new ShapeRenderer();
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(Color.GREEN);
-        if(character.getLIFE() < 4000 && character.getLIFE() > 2000){
-            shapeRenderer.setColor(Color.ORANGE);
+        if(character.getLIFE() > 0){
+            width = ((30 - character.getSkillCooldown()) * 3.32f);
+    
+            // Draw de skill bar 
+            ShapeRenderer shapeRenderer = new ShapeRenderer();
+            shapeRenderer.begin(ShapeType.Filled);
+            shapeRenderer.setColor(Color.BLUE);
+            shapeRenderer.rect(positionX - 32, positionY + 64, width, 5);
+            shapeRenderer.end();
         }
-        if(character.getLIFE() < 2000){
-            shapeRenderer.setColor(Color.RED);
-        }
-        shapeRenderer.rect(positionX - 32, positionY + 55, width, 5);
-        shapeRenderer.end();
     }
 
 }

@@ -31,7 +31,7 @@ public class Arm extends Character{
         this.positionArmY = positionArmY;
         bullets = new ArrayList<>();
         bulletTexture = new Texture("images/bullet1.png");
-        shootSound = Gdx.audio.newSound(Gdx.files.internal("audio/gun_shot.mp3"));
+        shootSound = Gdx.audio.newSound(Gdx.files.internal("audio/shot.wav"));
     }
 
     

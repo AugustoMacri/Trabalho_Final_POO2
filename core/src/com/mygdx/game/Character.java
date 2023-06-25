@@ -25,6 +25,10 @@ public class Character implements ScoreObservable{
     private int LIFE = 6000;    
     private int SCORE = 0;
     ArrayList <ScoreObserver> observers;
+    protected CharacterStrategy characterStrategy;
+    protected float skillCooldown = 0f, runskill = 0f;
+    private Sound teleportSound, healSound;
+
 
     public Character(Texture texture, float playerPositionX, float playerPositionY){
         batch = new SpriteBatch();
@@ -33,6 +37,8 @@ public class Character implements ScoreObservable{
         this.playerPositionY = playerPositionY;
         rectangle = new Rectangle(playerPositionX + 32, playerPositionY + 32, 25, 60);
         observers = new ArrayList<>();
+        teleportSound = Gdx.audio.newSound(Gdx.files.internal("audio/teleport.wav"));
+        healSound = Gdx.audio.newSound(Gdx.files.internal("audio/heal.wav"));
     }
 
     public void move(){
@@ -76,6 +82,42 @@ public class Character implements ScoreObservable{
             }
     }
 
+    public void setStrategy(CharacterStrategy characterStrategy){
+        this.characterStrategy = characterStrategy;
+    }
+
+    public void executeStrategy(CharacterStrategy characterStrategy){
+        characterStrategy.execute(this);
+    }
+
+    public void skills(){
+        if(Gdx.input.isKeyPressed(Keys.Q) && LIFE > 0 && LIFE < 5000 && skillCooldown <= 0){
+            setStrategy(new LifeStrategy());
+            characterStrategy.execute(this);
+            skillCooldown = 20.0f;
+            healSound.play();
+        }
+        if(Gdx.input.isKeyPressed(Keys.E) && LIFE > 0 && skillCooldown <= 0){
+            setStrategy(new TeleportStrategy());
+            characterStrategy.execute(this);
+            runskill = 0.04f;
+            skillCooldown = 30.0f;
+            teleportSound.play();
+        }
+        if (runskill > 0f) {
+            runskill -= Gdx.graphics.getDeltaTime();
+
+            if (runskill <= 0){
+            SPEED = 100;
+            }
+        }
+        if(skillCooldown > 0f){
+            skillCooldown -= Gdx.graphics.getDeltaTime();
+        }
+        
+
+
+    }
 
     public void update(){
         move();
@@ -90,6 +132,8 @@ public class Character implements ScoreObservable{
         batch.end();
         }
     }
+
+    
 
     @Override
     public void addObserver(ScoreObserver enemy){
@@ -204,4 +248,22 @@ public class Character implements ScoreObservable{
     public void setSCORE(int SCORE) {
         this.SCORE = SCORE;
     }
+
+    public float getSkillCooldown() {
+        return skillCooldown;
+    }
+
+    public void setSkillCooldown(float skillCooldown) {
+        this.skillCooldown = skillCooldown;
+    }
+
+    public float getRunskill() {
+        return runskill;
+    }
+
+    public void setRunskill(float runskill) {
+        this.runskill = runskill;
+    }
+
+    
 }
