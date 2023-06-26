@@ -4,9 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -28,7 +30,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private HealthBar healthBar;
     private SkillBar skillbar;
     private Arm arm;
-    private Music backGroundMusic;
+    private Music backGroundMusic, menuMusic;
     private Cube cube;
     private CollisionManager collisionManager;
     private SpawnManager spawnManager;
@@ -39,6 +41,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private float enemySpawnTimer; // Temporizador para controlar a frequência de geração
     private float enemySpawnInterval = 0.5f;
 
+    private boolean gameRunning = false;
 
     @Override
     public void create () {
@@ -52,16 +55,19 @@ public class MyGdxGame extends ApplicationAdapter {
         font.setColor(Color.WHITE);
         font.getData().setScale(1.5f);
 
-        //Background Music
+        //Menu Music
         //---------------------------------------------------------------------------------
-        backGroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/battle.wav"));
-        backGroundMusic.setLooping(true);
-        backGroundMusic.play();
+        backGroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Background.wav"));
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Menu_music.wav"));
+        menuMusic.setLooping(true);
+        menuMusic.setVolume(0.3f);
+        menuMusic.play();
+        
         
 
         //creating the backGround
         //---------------------------------------------------------------------------------
-        backGroundTexture = new Texture("images/Fundo_Fase1.png");
+        backGroundTexture = new Texture("images/Menu.png");
         backGround = new BackGround(backGroundTexture);
 
         //creating the character
@@ -110,6 +116,34 @@ public class MyGdxGame extends ApplicationAdapter {
     public void render () {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set the screen back to black
 
+        if (gameRunning) {
+            renderGame();
+        } else {
+            renderBackgroundOnly();
+        }
+    }
+
+    private void renderBackgroundOnly() {
+        spriteBatch.begin();
+        backGround.render();
+        spriteBatch.end();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            gameRunning = true;
+            backGroundTexture = new Texture("images/Fundo_Fase1.png");  // Altere o caminho para a nova imagem de fundo
+            backGround.setTexture(backGroundTexture);
+            menuMusic.stop();
+            backGroundMusic.play();
+            backGroundMusic.setLooping(true);
+            backGroundMusic.setVolume(0.3f);
+
+        }
+    }
+
+    
+    public void renderGame () {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set the screen back to black
+        
         //Render Score
         //---------------------------------------------------------------------------------
         spriteBatch.begin();
@@ -199,6 +233,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
     }
 
+    
+
     @Override
     public void dispose () {
         backGroundTexture.dispose();
@@ -211,4 +247,5 @@ public class MyGdxGame extends ApplicationAdapter {
         backGroundMusic.dispose();
         spriteBatch.dispose();
     }
+
 }
