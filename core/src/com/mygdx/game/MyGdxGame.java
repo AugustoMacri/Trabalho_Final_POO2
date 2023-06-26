@@ -13,6 +13,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
@@ -34,7 +37,8 @@ public class MyGdxGame extends ApplicationAdapter {
     private SpawnManager spawnManager;
     private SpriteBatch spriteBatch;
     private BitmapFont font;
-
+    private ScriptsDAO scriptsDAO;
+    private ConnectionDAO connectionDAO;
     private ArrayList<Enemy> enemies;
     private float enemySpawnTimer; // Temporizador para controlar a frequência de geração
     private float enemySpawnInterval = 0.5f;
@@ -42,6 +46,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     @Override
     public void create () {
+
         spriteBatch = new SpriteBatch();
         collisionManager = new CollisionManager();
         spawnManager = new SpawnManager();
@@ -104,6 +109,16 @@ public class MyGdxGame extends ApplicationAdapter {
         enemies = new ArrayList<Enemy>();
         enemySpawnTimer = 0.0f;
 
+        //Creating DataBase
+        //---------------------------------------------------------------------------------
+        connectionDAO = new ConnectionDAO();
+        scriptsDAO = new ScriptsDAO();
+        try {
+            connectionDAO.connect();
+            scriptsDAO.createTable(connectionDAO.getConnection());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -189,11 +204,21 @@ public class MyGdxGame extends ApplicationAdapter {
             }
         }
 
+
         for(Bullet bullet : arm.getBullets()){
             enemyIterator = enemies.iterator();
             while (enemyIterator.hasNext()) {
                 Enemy enemy = enemyIterator.next();
                 collisionManager.checkCollision(enemy, bullet);
+            }
+        }
+
+        if (character.getLIFE() <= 0){
+            try {
+                scriptsDAO.insertTable(connectionDAO.getConnection(), character);
+                System.exit(0);
+            }catch(SQLException e){
+                throw new RuntimeException();
             }
         }
 
