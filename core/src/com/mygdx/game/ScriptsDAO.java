@@ -1,10 +1,6 @@
 package com.mygdx.game;
 
 import java.sql.Connection;
-import java.sql.*;
-import com.mysql.cj.jdbc.Driver;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
