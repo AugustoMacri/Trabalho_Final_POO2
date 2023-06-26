@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
@@ -45,6 +46,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
     private boolean gameOver = false;
 
+    private ScriptsDAO scriptsDAO;
+    private ConnectionDAO connectionDAO;
+
     public void gameMenu() {
 
         //creating the backGround
@@ -60,12 +64,28 @@ public class MyGdxGame extends ApplicationAdapter {
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Menu_music.wav"));
     }
 
+    public void createScoreTable() {
+        connectionDAO = new ConnectionDAO();
+        scriptsDAO = new ScriptsDAO();
+        try {
+            connectionDAO.connect();
+            scriptsDAO.createTable(connectionDAO.getConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void create () {
 
         if (backGroundMusic == null || menuMusic == null) {
             gameMusic();
         }
+
+        if (connectionDAO == null || scriptsDAO == null) {
+            createScoreTable();
+        }
+
 
         spriteBatch = new SpriteBatch();
         collisionManager = new CollisionManager();
@@ -296,6 +316,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
         if(character.getLIFE() <= 0) {
             gameOver = true;
+            try {
+                scriptsDAO.insertTable(connectionDAO.getConnection(), character);
+            }catch(SQLException e){
+                throw new RuntimeException();
+            }
             return;
         }
     }
