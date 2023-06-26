@@ -43,8 +43,30 @@ public class MyGdxGame extends ApplicationAdapter {
 
     private boolean gameRunning = false;
 
+    private boolean gameOver = false;
+
+    public void gameMenu() {
+
+        //creating the backGround
+        //---------------------------------------------------------------------------------
+        backGroundTexture = new Texture("images/Menu.png");
+        backGround = new BackGround(backGroundTexture);
+    }
+
+    public void gameMusic() {
+        //Music
+        //---------------------------------------------------------------------------------
+        backGroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Background.wav"));
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Menu_music.wav"));
+    }
+
     @Override
     public void create () {
+
+        if (backGroundMusic == null || menuMusic == null) {
+            gameMusic();
+        }
+
         spriteBatch = new SpriteBatch();
         collisionManager = new CollisionManager();
         spawnManager = new SpawnManager();
@@ -54,21 +76,6 @@ public class MyGdxGame extends ApplicationAdapter {
         font = new BitmapFont();
         font.setColor(Color.WHITE);
         font.getData().setScale(1.5f);
-
-        //Menu Music
-        //---------------------------------------------------------------------------------
-        backGroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Background.wav"));
-        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Menu_music.wav"));
-        menuMusic.setLooping(true);
-        menuMusic.setVolume(0.3f);
-        menuMusic.play();
-        
-        
-
-        //creating the backGround
-        //---------------------------------------------------------------------------------
-        backGroundTexture = new Texture("images/Menu.png");
-        backGround = new BackGround(backGroundTexture);
 
         //creating the character
         //---------------------------------------------------------------------------------
@@ -112,38 +119,94 @@ public class MyGdxGame extends ApplicationAdapter {
 
     }
 
+    private void resetGame() {
+        create();
+        backGroundTexture = new Texture("images/Fundo_Fase1.png");
+        backGround.setTexture(backGroundTexture);
+        menuMusic.stop();
+        backGroundMusic.play();
+        backGroundMusic.setLooping(true);
+        backGroundMusic.setVolume(0.3f);
+        renderGame(); // Renderize o jogo após a reinicialização
+    }
+
     @Override
     public void render () {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set the screen back to black
 
+        //if (gameRunning && !gameOver) {
+          //  renderGame();
+        //}
+        //if (gameRunning && gameOver) {
+          //  renderGameOverScreen();
+        //}
+        //if (!gameRunning && !gameOver){
+          //  gameMenu();
+            //renderBackgroundOnly();
+        //}
         if (gameRunning) {
-            renderGame();
+            if (gameOver) {
+                renderGameOverScreen();
+            } else {
+                renderGame();
+            }
         } else {
+            gameMenu();
             renderBackgroundOnly();
         }
     }
 
     private void renderBackgroundOnly() {
+
+        if (!menuMusic.isPlaying()) {  // Verifica se a música do menu já está tocando
+            menuMusic.play();
+            menuMusic.setLooping(true);
+            menuMusic.setVolume(0.3f);
+        }
+
         spriteBatch.begin();
         backGround.render();
         spriteBatch.end();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             gameRunning = true;
+            gameOver = false;
             backGroundTexture = new Texture("images/Fundo_Fase1.png");  // Altere o caminho para a nova imagem de fundo
             backGround.setTexture(backGroundTexture);
             menuMusic.stop();
             backGroundMusic.play();
             backGroundMusic.setLooping(true);
             backGroundMusic.setVolume(0.3f);
-
         }
     }
 
-    
+    public void renderGameOverScreen() {
+
+        if(!menuMusic.isPlaying()) {
+            backGroundMusic.stop();
+            menuMusic.play();
+            menuMusic.setLooping(true);
+            menuMusic.setVolume(0.3f);
+        }
+
+        backGroundTexture = new Texture("images/Menu.png");  // Altere o caminho para a nova imagem de fundo
+        backGround.setTexture(backGroundTexture);
+        spriteBatch.begin();
+        backGround.render();
+        spriteBatch.end();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            gameRunning = true;
+            gameOver = false;
+            resetGame();
+        }
+    }
+
+
     public void renderGame () {
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set the screen back to black
-        
+
         //Render Score
         //---------------------------------------------------------------------------------
         spriteBatch.begin();
@@ -231,6 +294,10 @@ public class MyGdxGame extends ApplicationAdapter {
             }
         }
 
+        if(character.getLIFE() <= 0) {
+            gameOver = true;
+            return;
+        }
     }
 
     
