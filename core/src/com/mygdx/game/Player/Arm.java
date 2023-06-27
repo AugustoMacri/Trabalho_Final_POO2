@@ -35,8 +35,11 @@ public class Arm extends Character{
         shootSound = Gdx.audio.newSound(Gdx.files.internal("audio/shot.wav"));
     }
 
-    
+
     public void shoot() {
+
+        // iterates over the existing bullets, renders and moves each one
+
         if (arm) {
             Bullet bullet;
             for (int i = 0; i < this.getBullets().size(); i++) {
@@ -45,46 +48,49 @@ public class Arm extends Character{
                 bullet.moveBullet();
 
             }
-                    if (Gdx.input.isKeyPressed(Keys.SPACE) && shootCooldown <= 0f) {
-                        bullet = new Bullet(this, bulletTexture);
-                        shootSound.play(0.2f);
-                        bullets.add(bullet);
-                        shootCooldown = 0.25f;
-                    }
-                    if (shootCooldown > 0f) {
-                        shootCooldown -= Gdx.graphics.getDeltaTime();
-                    }
-                }
+            // Additionally, it creates a new bullet when the space key is pressed
+            if (Gdx.input.isKeyPressed(Keys.SPACE) && shootCooldown <= 0f) {
+                bullet = new Bullet(this, bulletTexture);
+                shootSound.play(0.2f);
+                bullets.add(bullet);
+                shootCooldown = 0.25f; // shootCooldown time between shots is less than or equal to zero.
             }
+            if (shootCooldown > 0f) {
+                shootCooldown -= Gdx.graphics.getDeltaTime();
+            }
+        }
+    }
 
 
     public void update(Character character){
+
+        // the arm follows the character's position
         positionArmX = character.getPlayerPositionX();
         positionArmY = character.getPlayerPositionY();
 
-        if(character.getLIFE() == 0 || character.getLIFE() < 0){
+        if(character.getLIFE() <= 0){
             arm = false;
         }
 
     }
 
     public void render() {
-    if (arm) {
-        // Obter as coordenadas X e Y do mouse
-        float mouseX = Gdx.input.getX();
-        float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        if (arm) {
+            // getting mouse x and y coordinates
+            float mouseX = Gdx.input.getX();
+            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-        // Calcular o ângulo entre o braço e o mouse
-        Vector2 armPosition = new Vector2(positionArmX + 12, positionArmY + 12); // Posição central do braço
-        Vector2 mousePosition = new Vector2(mouseX, mouseY);
-        float angle = MathUtils.radiansToDegrees * MathUtils.atan2(mousePosition.y - armPosition.y, mousePosition.x - armPosition.x);
+            // Calculate the angle between the arm and the mouse coordinates
+            Vector2 armPosition = new Vector2(positionArmX + 12, positionArmY + 12); // Arm's central position
+            Vector2 mousePosition = new Vector2(mouseX, mouseY);
+            float angle = MathUtils.radiansToDegrees * MathUtils.atan2(mousePosition.y - armPosition.y, mousePosition.x - armPosition.x);
 
-        // Definir a rotação da imagem do braço
-        batch.begin();
-        batch.draw(textureArm, positionArmX, positionArmY + 15, textureArm.getWidth() / 2 - 8, textureArm.getHeight() / 2, textureArm.getWidth(), textureArm.getHeight(), 2, 2, angle, 0, 0, textureArm.getWidth(), textureArm.getHeight(), false, false);
-        batch.end();
+            // Define the rotation of the arm appearance
+            batch.begin();
+            batch.draw(textureArm, positionArmX, positionArmY + 15, textureArm.getWidth() / 2 - 8, textureArm.getHeight() / 2, textureArm.getWidth(), textureArm.getHeight(), 2, 2, angle, 0, 0, textureArm.getWidth(), textureArm.getHeight(), false, false);
+            batch.end();
+        }
     }
-}
 
     public Texture getTextureArm() {
         return textureArm;
@@ -125,6 +131,6 @@ public class Arm extends Character{
     public void setBullets(ArrayList<Bullet> bullets) {
         this.bullets = bullets;
     }
-    
+
 
 }

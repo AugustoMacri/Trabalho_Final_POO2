@@ -28,41 +28,24 @@ public class Bullet implements Cloneable{
     private float yBullet;
     private ShapeRenderer shapeRenderer;
 
-    public Bullet(Arm arm, Texture texture){
+    public Bullet(Arm arm, Texture texture) {
         arm2 = arm;
-        this.xBullet = arm.getPositionArmX()+16;
-        this.yBullet = arm.getPositionArmY()+16;
+        this.xBullet = arm.getPositionArmX() + 16;
+        this.yBullet = arm.getPositionArmY() + 16;
         textureBullet = texture;
         batch = new SpriteBatch();
         rectangle = new Rectangle(xBullet + 8, yBullet + 3, 5, 5);
         shapeRenderer = new ShapeRenderer();
 
     }
-    //prototype
-    @Override
-    public Bullet clone() {
-        try {
-            //é feita uma chamada ao método clone() da classe
-            // Object (superclasse), que realiza uma cópia superficial
-            // dos campos do objeto. Em seguida, é necessário fazer
-            // um cast (conversão de tipo) para o tipo Bullet para retornar
-            // a cópia corretamente tipada.
-            return (Bullet) super.clone();
-        } catch (CloneNotSupportedException e) {
-            // Lidar com exceção de clonagem, se necessário
-            return null;
-        }
-    }
-
-
 
     public void moveBullet() {
         if (LIFE > 0 && xBullet < Gdx.graphics.getWidth()) {
             if (!attack) {
+                // Set initial bullet position and direction based on mouse position
                 attack = true;
                 yBullet = arm2.getPositionArmY() + 16;
 
-                // Definir a direção inicial da bala com base na posição atual do mouse
                 float mouseX = Gdx.input.getX();
                 float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
@@ -74,23 +57,27 @@ public class Bullet implements Cloneable{
             }
 
             if (attack) {
+                // Move the bullet in its current direction and speed
                 if (xBullet < Gdx.graphics.getWidth()) {
-                    // Atualizar a posição da bala com base na direção e velocidade
                     xBullet += directionX * SPEED * Gdx.graphics.getDeltaTime();
                     yBullet += directionY * SPEED * Gdx.graphics.getDeltaTime();
                 } else {
+                    // Reset bullet position and remove it when it reaches the end of the screen
                     xBullet = arm2.getPositionArmX() + 16;
                     attack = false;
                     arm2.getBullets().remove(0);
                 }
             } else {
+                // Reset bullet position if not in attack mode
                 xBullet = arm2.getPositionArmX() + 16;
                 yBullet = arm2.getPositionArmY() + 16;
             }
         } else {
+            // Remove bullet when it has no life remaining or goes beyond the screen
             arm2.getBullets().remove(0);
         }
     }
+
 
 
     public void render (){

@@ -94,14 +94,16 @@ public class Character implements ScoreObservable{
         characterStrategy.execute(this);
     }
 
-    public void skills(){
-        if(Gdx.input.isKeyPressed(Keys.Q) && LIFE > 0 && LIFE < 5000 && skillCooldown <= 0){
+    public void skills() {
+        if (Gdx.input.isKeyPressed(Keys.Q) && LIFE > 0 && LIFE < 5000 && skillCooldown <= 0) {
+            // Heals if the Q key is pressed and certain conditions are met
             setStrategy(new LifeStrategy());
             characterStrategy.execute(this);
             skillCooldown = 15.0f;
             healSound.play();
         }
-        if(Gdx.input.isKeyPressed(Keys.E) && LIFE > 0 && skillCooldown <= 0){
+        if (Gdx.input.isKeyPressed(Keys.E) && LIFE > 0 && skillCooldown <= 0) {
+            // Teleports if the E key is pressed and certain conditions are met
             setStrategy(new TeleportStrategy());
             characterStrategy.execute(this);
             runskill = 0.04f;
@@ -109,19 +111,20 @@ public class Character implements ScoreObservable{
             teleportSound.play();
         }
         if (runskill > 0f) {
+            // Decrease runskill time if it is active
             runskill -= Gdx.graphics.getDeltaTime();
 
-            if (runskill <= 0){
-            SPEED = 100;
+            if (runskill <= 0) {
+                // Reset character speed when runskill ends
+                SPEED = 100;
             }
         }
-        if(skillCooldown > 0f){
+        if (skillCooldown > 0f) {
+            // Decrease skill cooldown time
             skillCooldown -= Gdx.graphics.getDeltaTime();
         }
-        
-
-
     }
+
 
     public void update(){
         move();
@@ -151,6 +154,7 @@ public class Character implements ScoreObservable{
 
     @Override
     public void notifyObservers(){
+        // notify the observers by the current score
         for(ScoreObserver observer : observers){
             observer.updateScore(SCORE);
         }

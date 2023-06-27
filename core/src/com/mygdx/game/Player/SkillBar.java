@@ -20,6 +20,7 @@ public class SkillBar{
     }
 
     public void update(Character character){
+        // follows the character's position
         positionX = character.getPlayerPositionX();
         positionY = character.getPlayerPositionY();
     }

@@ -68,14 +68,15 @@ public class HereTheyCome extends ApplicationAdapter {
 
     public void gameMenu() {
 
-        //creating the backGround
+        //creating the map
         //---------------------------------------------------------------------------------
         backGroundTexture = new Texture("images/Menu.png");
         backGround = new BackGround(backGroundTexture);
     }
 
     public void gameMusic() {
-        //Music
+
+        // creating menu, gameplay and game over music
         //---------------------------------------------------------------------------------
         backGroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Background.wav"));
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Menu_music.wav"));
@@ -96,10 +97,11 @@ public class HereTheyCome extends ApplicationAdapter {
     @Override
     public void create () {
 
+        // checks if the music are instantiated
         if (backGroundMusic == null || menuMusic == null || gameOverMusic == null) {
             gameMusic();
         }
-
+        // checks if the database connection and scripts are set
         if (connectionDAO == null || scriptsDAO == null) {
             createScoreTable();
         }
@@ -109,7 +111,7 @@ public class HereTheyCome extends ApplicationAdapter {
         collisionManager = new CollisionManager();
         spawnManager = new SpawnManager();
 
-        //Score Board
+        // Score
         //---------------------------------------------------------------------------------
         font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -124,18 +126,18 @@ public class HereTheyCome extends ApplicationAdapter {
         armTexture = new Texture("images/Arm1.png");
         arm = new Arm(characterTexture, 0, 0, armTexture, 0, 0);
 
-        //creating the cube
+        //creating the defensive cube
         //---------------------------------------------------------------------------------
         cubeTexture = new Texture("images/Cube.png");
         cube = new Cube(cubeTexture, 550, 570, 50, 50);
 
-        //creating Enemys
+        //creating Enemies
         //---------------------------------------------------------------------------------
         enemyTextureNormal = new Texture("images/zombie.png");
         enemyTextureFast = new Texture("images/zombie2.png");
         enemyTextureBuff = new Texture("images/zombie3.png");
 
-        //Creating Obstacle
+        //Creating Obstacles on the map
         //---------------------------------------------------------------------------------
         mall = new Obstacle(263, 600, 770, 120);
         carV = new Obstacle(397, 359, 90, 50);
@@ -165,23 +167,13 @@ public class HereTheyCome extends ApplicationAdapter {
         backGroundMusic.play();
         backGroundMusic.setLooping(true);
         backGroundMusic.setVolume(0.3f);
-        renderGame(); // Renderize o jogo após a reinicialização
+        renderGame(); // The game is ready to play again
     }
 
     @Override
     public void render () {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 	//Set the screen back to black
 
-        //if (gameRunning && !gameOver) {
-          //  renderGame();
-        //}
-        //if (gameRunning && gameOver) {
-          //  renderGameOverScreen();
-        //}
-        //if (!gameRunning && !gameOver){
-          //  gameMenu();
-            //renderBackgroundOnly();
-        //}
         if (gameRunning) {
             if (gameOver) {
                 renderGameOverScreen();
@@ -196,7 +188,7 @@ public class HereTheyCome extends ApplicationAdapter {
 
     private void renderBackgroundOnly() {
 
-        if (!menuMusic.isPlaying()) {  // Verifica se a música do menu já está tocando
+        if (!menuMusic.isPlaying()) {  // Checks the music and sets the right one (menu)
             menuMusic.play();
             menuMusic.setLooping(true);
             menuMusic.setVolume(0.3f);
@@ -209,10 +201,10 @@ public class HereTheyCome extends ApplicationAdapter {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             gameRunning = true;
             gameOver = false;
-            backGroundTexture = new Texture("images/Fundo_Fase1.png");  // Altere o caminho para a nova imagem de fundo
+            backGroundTexture = new Texture("images/Fundo_Fase1.png");  // Changes to the actual map background
             backGround.setTexture(backGroundTexture);
             menuMusic.stop();
-            backGroundMusic.play();
+            backGroundMusic.play(); // play the gameplay song
             backGroundMusic.setLooping(true);
             backGroundMusic.setVolume(0.3f);
         }
@@ -220,19 +212,19 @@ public class HereTheyCome extends ApplicationAdapter {
 
     public void renderGameOverScreen() {
 
-        if(!gameOverMusic.isPlaying()) {
+        if(!gameOverMusic.isPlaying()) { // Checks the music and sets the right one (game over)
             backGroundMusic.stop();
             gameOverMusic.play();
             gameOverMusic.setLooping(true);
             gameOverMusic.setVolume(0.3f);
         }
 
-        backGroundTexture = new Texture("images/gameOver_screen.png");  // Altere o caminho para a nova imagem de fundo
+        backGroundTexture = new Texture("images/gameOver_screen.png");  // Changes to the actual map background
         backGround.setTexture(backGroundTexture);
         spriteBatch.begin();
         backGround.render();
         try {
-            topScore = scriptsDAO.topScore(connectionDAO.getConnection(), character);
+            topScore = scriptsDAO.topScore(connectionDAO.getConnection(), character); // Select the top score on the database to be shown on the screen
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -261,6 +253,7 @@ public class HereTheyCome extends ApplicationAdapter {
         healthBar.render(character);
         skillbar.render(character);
         arm.render();
+        // Shows the current player's score in the top left corner
         font.draw(spriteBatch, "Score: " + character.getSCORE(), 10, Gdx.graphics.getHeight() - 10);
         cube.render();
         cube.handleInput();
@@ -296,13 +289,14 @@ public class HereTheyCome extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         enemySpawnTimer += Gdx.graphics.getDeltaTime();
         if(enemySpawnTimer >= enemySpawnInterval){
-            Enemy enemy = spawnManager.spawnEnemy();
-            enemies.add(enemy);
-            character.addObserver(enemy);
+            Enemy enemy = spawnManager.spawnEnemy(); // A zombie spawns every 0.5sec
+            enemies.add(enemy); // Adding it to the arraylist to iterate
+            character.addObserver(enemy); // Adding it to be a score observer
             enemySpawnTimer = 0.0f;
         }
 
         Iterator<Enemy> enemyIterator = enemies.iterator();
+        // Iterates with the zombies, checking collision with every object on the map
         while (enemyIterator.hasNext()) {
             Enemy enemy = enemyIterator.next();
             enemy.render();
@@ -322,15 +316,16 @@ public class HereTheyCome extends ApplicationAdapter {
             collisionManager.checkCollision(enemy, garbage);
             collisionManager.checkCollision(enemy, barrier);
 
+            // if a zombie dies, it will be removed to the arraylist and the player's score increase, notifying observers
             if (enemy.getLIFE() <= 0) {
                 enemyIterator.remove();
                 character.removeObserver(enemy);
                 character.setSCORE(character.getSCORE() + 10);
                 character.notifyObservers();
-                // O inimigo foi derrotado, faça o que for necessário aqui
             }
         }
 
+        // Checking collision between the zombies and the shots
         for(Bullet bullet : arm.getBullets()){
             enemyIterator = enemies.iterator();
             while (enemyIterator.hasNext()) {
@@ -339,6 +334,7 @@ public class HereTheyCome extends ApplicationAdapter {
             }
         }
 
+        // if the character dies, the game over screen is shown and the score is stored on the database
         if(character.getLIFE() <= 0) {
             gameOver = true;
             try {

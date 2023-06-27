@@ -24,13 +24,16 @@ public class SpawnManager {
 
     public Enemy spawnEnemy() {
         Random random = new Random();
-        int enemyType = random.nextInt(3); // Randomly select enemy type (0, 1, or 2)
+        int enemyType = random.nextInt(3); // Randomly select enemy type (ZombieBuff, ZombieFast, ZombieNormal)
 
         Texture enemyTexture;
-        float x = random.nextInt(Gdx.graphics.getWidth() + 120);
+
+        // Random spawn position based on the screen width and height
+        float x = random.nextInt(Gdx.graphics.getWidth() + 120); // Zombies only spawn below the mall
         float y = random.nextInt(Gdx.graphics.getHeight() - 120);
         Enemy enemy = null;
 
+        // invoking the corresponding type of factory method
         switch(enemyType) {
             case 0: enemyTexture = enemyTextureNormal;
                     enemy = zombieNormalFac.createZombie(enemyTexture, x, y);

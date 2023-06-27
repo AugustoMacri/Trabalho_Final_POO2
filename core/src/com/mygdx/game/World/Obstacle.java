@@ -18,6 +18,7 @@ public class Obstacle {
     private ShapeRenderer shapeRenderer;
 
 
+    // Everything on the map that the subjects can bump into
     public Obstacle(float x, float y, float width, float hight){
         this.x = x;
         this.y = y;

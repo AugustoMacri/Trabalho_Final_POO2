@@ -6,6 +6,8 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class ConnectionDAO {
     Connection connection = null;
     public void connect() {
+
+        // Connnecting to remote database
         Dotenv dotenv = Dotenv.configure().load();
     	String dbHost = dotenv.get("DB_HOST");
     	String dbUsername = dotenv.get("DB_USERNAME");

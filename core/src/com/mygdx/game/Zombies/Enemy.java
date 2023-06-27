@@ -50,27 +50,27 @@ public abstract class Enemy implements ScoreObserver{
         if(LIFE > 0) {
             previousPosition = new Vector2(x, y);
 
-            //Zombie movimentation
+            // Zombie movement
             //------------------------------------------------------------
             if (x != character.getPlayerPositionX() || y != character.getPlayerPositionY()) {
                 float deltaX = character.getPlayerPositionX() - x;
                 float deltaY = character.getPlayerPositionY() - y;
-                float angle = (float) Math.atan2(deltaY, deltaX);   //Calculate the angle between the character and the zombie
+                float angle = (float) Math.atan2(deltaY, deltaX);   // Calculate the angle between the character and the zombie
 
-                //Calculating the new x and y coordinate
-                float newX = (float) (x + SPEED * Math.cos(angle) * Gdx.graphics.getDeltaTime()); //Math.cos(angle) provides the x of the enemy movimentation thru the angle
-                float newY = (float) (y + SPEED * Math.sin(angle) * Gdx.graphics.getDeltaTime()); //Math.sin(angle) provides the y of the enemy movimentation thru the angle
+                // Calculate the new x and y coordinates based on the angle and speed
+                float newX = (float) (x + SPEED * Math.cos(angle) * Gdx.graphics.getDeltaTime()); // Math.cos(angle) provides the x component of the enemy movement along the angle
+                float newY = (float) (y + SPEED * Math.sin(angle) * Gdx.graphics.getDeltaTime()); // Math.sin(angle) provides the y component of the enemy movement along the angle
 
                 x = newX;
                 y = newY;
-
             }
 
-            //Collision Rectangle position
+            // Update collision rectangle position
             //------------------------------------------------------------
             rectangle.setPosition(x, y);
         }
     }
+
 
     public void setStrategy(EnemyStrategy enemyStrategy){
         this.enemyStrategy = enemyStrategy;
@@ -90,6 +90,8 @@ public abstract class Enemy implements ScoreObserver{
 
     @Override
     public void updateScore(int SCORE){
+
+        // Enemies observe the character's score and change their strategy
         if(SCORE >= 1000){
             setStrategy(new HardcoreStrategy());
             enemyStrategy.execute(this);
