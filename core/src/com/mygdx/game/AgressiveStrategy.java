@@ -4,8 +4,8 @@ public class AgressiveStrategy implements EnemyStrategy{
 
     @Override
     public void execute(Enemy enemy) {
-        enemy.setDANO(enemy.getDANO() * 2);
-        enemy.setSPEED(enemy.getSPEED() * 2);
+        enemy.setSPEED(enemy.getSPEED() + 1);
+        enemy.setLIFE(enemy.getLIFE() + 15);
     }
     
 }

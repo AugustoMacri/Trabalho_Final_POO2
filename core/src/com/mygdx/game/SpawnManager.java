@@ -23,8 +23,8 @@ public class SpawnManager {
         int enemyType = random.nextInt(3); // Randomly select enemy type (0, 1, or 2)
 
         Texture enemyTexture;
-        float x = random.nextInt(Gdx.graphics.getWidth());
-        float y = random.nextInt(Gdx.graphics.getHeight());
+        float x = random.nextInt(Gdx.graphics.getWidth() + 120);
+        float y = random.nextInt(Gdx.graphics.getHeight() - 120);
         Enemy enemy = null;
 
         switch(enemyType) {

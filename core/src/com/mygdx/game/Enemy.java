@@ -84,13 +84,13 @@ public abstract class Enemy implements ScoreObserver{
 
     @Override
     public void updateScore(int SCORE){
-        if(SCORE == 1000){
+        if(SCORE >= 1000){
             setStrategy(new HardcoreStrategy());
             enemyStrategy.execute(this);
-        }else if (SCORE == 500){
+        }else if (SCORE >= 500){
             setStrategy(new AgressiveStrategy());
             enemyStrategy.execute(this);
-        }else if (SCORE == 250){
+        }else if (SCORE >= 250){
             setStrategy(new AngryStrategy());
             enemyStrategy.execute(this);
         }else if(SCORE == 0){

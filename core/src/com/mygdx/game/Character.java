@@ -94,14 +94,14 @@ public class Character implements ScoreObservable{
         if(Gdx.input.isKeyPressed(Keys.Q) && LIFE > 0 && LIFE < 5000 && skillCooldown <= 0){
             setStrategy(new LifeStrategy());
             characterStrategy.execute(this);
-            skillCooldown = 20.0f;
+            skillCooldown = 15.0f;
             healSound.play();
         }
         if(Gdx.input.isKeyPressed(Keys.E) && LIFE > 0 && skillCooldown <= 0){
             setStrategy(new TeleportStrategy());
             characterStrategy.execute(this);
             runskill = 0.04f;
-            skillCooldown = 30.0f;
+            skillCooldown = 15.0f;
             teleportSound.play();
         }
         if (runskill > 0f) {

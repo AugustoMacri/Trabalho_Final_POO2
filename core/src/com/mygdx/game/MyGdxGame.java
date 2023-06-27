@@ -15,6 +15,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Iterator;
@@ -31,7 +33,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private HealthBar healthBar;
     private SkillBar skillbar;
     private Arm arm;
-    private Music backGroundMusic, menuMusic;
+    private Music backGroundMusic, menuMusic, gameOverMusic;
     private Cube cube;
     private CollisionManager collisionManager;
     private SpawnManager spawnManager;
@@ -49,6 +51,8 @@ public class MyGdxGame extends ApplicationAdapter {
     private ScriptsDAO scriptsDAO;
     private ConnectionDAO connectionDAO;
 
+    private int topScore;
+
     public void gameMenu() {
 
         //creating the backGround
@@ -62,6 +66,7 @@ public class MyGdxGame extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         backGroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Background.wav"));
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/Menu_music.wav"));
+        gameOverMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/game_over.wav"));
     }
 
     public void createScoreTable() {
@@ -78,7 +83,7 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create () {
 
-        if (backGroundMusic == null || menuMusic == null) {
+        if (backGroundMusic == null || menuMusic == null || gameOverMusic == null) {
             gameMusic();
         }
 
@@ -95,7 +100,7 @@ public class MyGdxGame extends ApplicationAdapter {
         //---------------------------------------------------------------------------------
         font = new BitmapFont();
         font.setColor(Color.WHITE);
-        font.getData().setScale(1.5f);
+        font.getData().setScale(2.0f);
 
         //creating the character
         //---------------------------------------------------------------------------------
@@ -143,7 +148,7 @@ public class MyGdxGame extends ApplicationAdapter {
         create();
         backGroundTexture = new Texture("images/Fundo_Fase1.png");
         backGround.setTexture(backGroundTexture);
-        menuMusic.stop();
+        gameOverMusic.stop();
         backGroundMusic.play();
         backGroundMusic.setLooping(true);
         backGroundMusic.setVolume(0.3f);
@@ -202,17 +207,24 @@ public class MyGdxGame extends ApplicationAdapter {
 
     public void renderGameOverScreen() {
 
-        if(!menuMusic.isPlaying()) {
+        if(!gameOverMusic.isPlaying()) {
             backGroundMusic.stop();
-            menuMusic.play();
-            menuMusic.setLooping(true);
-            menuMusic.setVolume(0.3f);
+            gameOverMusic.play();
+            gameOverMusic.setLooping(true);
+            gameOverMusic.setVolume(0.3f);
         }
 
-        backGroundTexture = new Texture("images/Menu.png");  // Altere o caminho para a nova imagem de fundo
+        backGroundTexture = new Texture("images/gameOver_screen.png");  // Altere o caminho para a nova imagem de fundo
         backGround.setTexture(backGroundTexture);
         spriteBatch.begin();
         backGround.render();
+        try {
+            topScore = scriptsDAO.topScore(connectionDAO.getConnection(), character);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        font.draw(spriteBatch, "" + character.getSCORE(), Gdx.graphics.getWidth()/2 + 50, Gdx.graphics.getHeight()/2 + 115);
+        font.draw(spriteBatch, "" + topScore, Gdx.graphics.getWidth()/2 + 50, Gdx.graphics.getHeight()/2 + 23);
         spriteBatch.end();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {

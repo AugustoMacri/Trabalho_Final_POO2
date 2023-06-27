@@ -1,15 +1,18 @@
 package com.mygdx.game;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.*;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConnectionDAO {
     Connection connection = null;
     public void connect() {
+        Dotenv dotenv = Dotenv.configure().load();
+    	String dbHost = dotenv.get("DB_HOST");
+    	String dbUsername = dotenv.get("DB_USERNAME");
+    	String dbPassword = dotenv.get("DB_PASSWORD");
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://silly.db.elephantsql.com:5432/iqhizwhy", "iqhizwhy", "iYd_982gm4jk3La-lK7yBowVGupF0tN7");
+            connection = DriverManager.getConnection(dbHost, dbUsername, dbPassword);
 
         } catch (ClassNotFoundException e) {
             System.out.println("Driver do BD nao localizado");

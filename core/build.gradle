@@ -7,4 +7,7 @@ eclipse.project.name = appName + "-core"
 
 dependencies{
     implementation 'org.postgresql:postgresql:42.5.4';
+    implementation 'io.github.cdimascio:dotenv-java:5.2.2'
+
 }
+
