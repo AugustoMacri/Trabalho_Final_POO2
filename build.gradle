@@ -82,7 +82,5 @@ project(":core") {
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-        implementation 'io.github.cdimascio:dotenv-java:5.2.2'
-
     }
 }
