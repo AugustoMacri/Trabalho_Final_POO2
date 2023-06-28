@@ -54,7 +54,7 @@ public class HereTheyCome extends ApplicationAdapter {
     private BitmapFont font;
 
     private ArrayList<Enemy> enemies;
-    private float enemySpawnTimer; // Temporizador para controlar a frequência de geração
+    private float enemySpawnTimer; 
     private float enemySpawnInterval = 0.5f;
 
     private boolean gameRunning = false;
@@ -131,11 +131,6 @@ public class HereTheyCome extends ApplicationAdapter {
         cubeTexture = new Texture("images/Cube.png");
         cube = new Cube(cubeTexture, 550, 570, 50, 50);
 
-        //creating Enemies
-        //---------------------------------------------------------------------------------
-        enemyTextureNormal = new Texture("images/zombie.png");
-        enemyTextureFast = new Texture("images/zombie2.png");
-        enemyTextureBuff = new Texture("images/zombie3.png");
 
         //Creating Obstacles on the map
         //---------------------------------------------------------------------------------
