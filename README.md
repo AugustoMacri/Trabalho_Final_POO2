@@ -25,7 +25,7 @@
         <section>
             <div align="center">
                 <h2>Do you want to play?
-                    Do a git clone of project, use your IDE of your preference and write "./gradlew run" <br>
+                    Do a git clone of project, use your IDE of your preference and write "./gradlew run" in terminal. <br>
                     Have fun :)
         </section>
         </p>
