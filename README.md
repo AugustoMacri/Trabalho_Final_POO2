@@ -16,20 +16,35 @@ The mall parking lot environment offers diverse gameplay, with obstacles to hind
 Get ready for an intense and adrenaline-filled experience where every decision counts. Time is running out, the zombies are closing in, and your only hope is to stay alive until help arrives. Do you have what it takes to survive this zombie nightmare?</h2>
       <p></p>
     </section>
-
+<p>
     <section>
       <h2>Do you want to play?
       Do a git clone of project, use your IDE of your preference and write "./gradlew run" 
-      Have fun :)</p>
+      Have fun :)
     </section>
-
+</p>
     <section>
-      <h2>Imagens</h2>
-      <img src="assets/images/Menu.png" alt="Menu of HTC">
+      <h2>Menu HTC</h2>
+      <div align = "center">
+      <img src = "assets/images/Menu.png" width = "750px" alt = "Menu of HTC">
+    </section>
+    <section>
+      <h2>Characters</h2>
+      <div align = "center">
+      <img src = "assets/images/character1.Left.png" width = "100px" alt = "Character">
+      <img src = "assets/images/zombie.png" width = "100px" alt = "Zombie Normal">
+      <img src = "assets/images/zombie2.png" width = "100px" alt = "Zombie Fast">
+      <img src = "assets/images/zombie3.png" width = "100px" alt = "Zombie Buff">
+    </section>
+        <section>
+      <h2>Game Over Screen HTC</h2>
+      <div align = "center">
+      <img src = "assets/images/gameOver_screen.png" width = "750px" alt = "Game Over">
     </section>
   </main>
-
   <footer>
+    <br>
+    <br>
     <p>&copy; 2023 Augusto Fernandes Macri, João Pedro Cruz Espíndola e Gabriel Antônio de Oliveira Leite</p>
   </footer>
 </body>
