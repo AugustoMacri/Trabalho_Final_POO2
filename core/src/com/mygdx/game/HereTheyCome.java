@@ -159,16 +159,6 @@ public class HereTheyCome extends ApplicationAdapter {
 
     }
 
-    private void resetGame() {
-        create();
-        backGroundTexture = new Texture("images/Fundo_Fase1.png");
-        backGround.setTexture(backGroundTexture);
-        gameOverMusic.stop();
-        backGroundMusic.play();
-        backGroundMusic.setLooping(true);
-        backGroundMusic.setVolume(0.3f);
-        renderGame(); // The game is ready to play again
-    }
 
     @Override
     public void render () {
@@ -208,6 +198,17 @@ public class HereTheyCome extends ApplicationAdapter {
             backGroundMusic.setLooping(true);
             backGroundMusic.setVolume(0.3f);
         }
+    }
+    
+    private void resetGame() {
+        create();
+        backGroundTexture = new Texture("images/Fundo_Fase1.png");
+        backGround.setTexture(backGroundTexture);
+        gameOverMusic.stop();
+        backGroundMusic.play();
+        backGroundMusic.setLooping(true);
+        backGroundMusic.setVolume(0.3f);
+        renderGame(); // The game is ready to play again
     }
 
     public void renderGameOverScreen() {

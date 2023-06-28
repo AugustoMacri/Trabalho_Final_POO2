@@ -106,7 +106,6 @@ public abstract class Enemy implements ScoreObserver{
         }
     }
 
-    //TENTAR COLOCAR COM O OU ||
 
     public int getDAMAGEBULLET() {
         return DAMAGEBULLET;
